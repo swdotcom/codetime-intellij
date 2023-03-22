@@ -1,5 +1,6 @@
 package com.software.codetime.managers;
 
+import com.intellij.openapi.application.ApplicationManager;
 import org.apache.commons.lang.StringUtils;
 import swdc.java.ops.manager.UtilManager;
 import swdc.java.ops.snowplow.events.UIInteractionType;

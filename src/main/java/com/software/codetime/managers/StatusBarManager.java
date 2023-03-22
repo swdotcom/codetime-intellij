@@ -39,7 +39,9 @@ public class StatusBarManager {
         updateStatusBar(null);
 
         // refresh the tree
-        SidebarToolWindow.refresh(false);
+        AsyncManager.getInstance().executeOnceInSeconds(() -> {
+            SidebarToolWindow.refresh(false);
+        }, 2);
     }
 
     public static void updateStatusBar(SessionSummary sessionSummary) {

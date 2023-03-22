@@ -1,5 +1,6 @@
 package com.software.codetime.main;
 
+import com.intellij.application.options.RegistryManager;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
@@ -20,6 +21,7 @@ import swdc.java.ops.model.ConfigOptions;
 import swdc.java.ops.snowplow.events.UIInteractionType;
 import swdc.java.ops.websockets.WebsocketClient;
 
+import javax.swing.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +45,27 @@ public class Activator {
 
     private void init() {
         String appName = ApplicationInfo.getInstance().getFullApplicationName();
-        log.log(Level.INFO, ConfigManager.plugin_name + ": Loaded v" + ConfigManager.plugin_id + " - " + appName);
+        log.log(Level.INFO, ConfigManager.plugin_name + ": Loaded v" + PluginInfo.getPluginId() + " - " + appName);
+
+        ConfigOptions options = new ConfigOptions();
+        options.ideName = PluginInfo.IDE_NAME;
+        options.pluginType = "codetime";
+        options.pluginEditor = "intellij";
+        options.appUrl = PluginInfo.app_url;
+        options.ideVersion = PluginInfo.IDE_VERSION;
+        options.metricsEndpoint = PluginInfo.metrics_endpoint;
+        options.pluginId = PluginInfo.getPluginId();
+        options.pluginName = PluginInfo.getPluginName();
+        options.pluginVersion = PluginInfo.getVersion();
+        options.softwareDir = PluginInfo.software_dir;
+        options.pluginId = PluginInfo.getPluginId();
+        ConfigManager.init(
+                options,
+                () -> refreshSidebar(),
+                new WebsocketMessageManager(),
+                new SessionStatusUpdateManager(),
+                new ThemeModeInfoManager(),
+                ConfigManager.IdeType.intellij);
 
         // create anon user if no user exists
         anonCheck();
@@ -103,6 +125,12 @@ public class Activator {
         });
     }
 
+    private void refreshSidebar() {
+        ApplicationManager.getApplication().invokeLater(() -> {
+            SidebarToolWindow.refresh(false);
+        });
+    }
+
     private void initializeSidbarToolWindow() {
         Project p = ProjectActivateListener.getCurrentProject();
         if (p == null) {
@@ -111,25 +139,6 @@ public class Activator {
         com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(p).getToolWindow("Code Time");
         if (toolWindow != null && SidebarToolWindow.windowProject != null) {
             SidebarToolWindow.openToolWindow();
-
-            ConfigOptions options = new ConfigOptions();
-            options.ideName = PluginInfo.IDE_NAME;
-            options.pluginType = "codetime";
-            options.pluginEditor = "intellij";
-            options.appUrl = PluginInfo.app_url;
-            options.ideVersion = PluginInfo.IDE_VERSION;
-            options.metricsEndpoint = PluginInfo.metrics_endpoint;
-            options.pluginId = PluginInfo.getPluginId();
-            options.pluginName = PluginInfo.getPluginName();
-            options.pluginVersion = PluginInfo.getVersion();
-            options.softwareDir = PluginInfo.software_dir;
-            ConfigManager.init(
-                    options,
-                    () -> SidebarToolWindow.refresh(false),
-                    new WebsocketMessageManager(),
-                    new SessionStatusUpdateManager(),
-                    new ThemeModeInfoManager(),
-                    ConfigManager.IdeType.intellij);
         } else {
             // retry
             AsyncManager.getInstance().executeOnceInSeconds(() -> {

@@ -66,7 +66,7 @@ public class EndOfDayManager {
                 });
             } else if (choice == 0) {
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time?view=summary");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time");
                 });
             }
         });

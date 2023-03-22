@@ -2,7 +2,6 @@ package com.software.codetime.toolwindows.codetime;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.NlsContexts;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.openapi.wm.ToolWindowManager;
@@ -11,26 +10,21 @@ import com.intellij.ui.jcef.JBCefApp;
 import com.software.codetime.listeners.ProjectActivateListener;
 import com.software.codetime.managers.IntellijProjectManager;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public class SidebarToolWindow implements ToolWindowFactory {
     private static CodeTimeToolWindow ctWindow;
-    private static TreeView tv;
+    private static SidebarTreeView tv;
+    private static ToolWindow tw;
     public static Project windowProject;
+
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull com.intellij.openapi.wm.ToolWindow toolWindow) {
-        if (windowProject != null) {
-            return;
-        }
+        tw = toolWindow;
         if (SidebarToolWindow.isJcefSupported()) {
-            initWebView(project, toolWindow);
-            ctWindow.refresh();
+            initWebView(project, tw);
         } else {
-            initTreeView(project, toolWindow);
-            tv.refresh();
+            initTreeView(project, tw);
         }
     }
 
@@ -50,48 +44,43 @@ public class SidebarToolWindow implements ToolWindowFactory {
     }
 
     private static void initWebView(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        ctWindow = new CodeTimeToolWindow(project);
+        if (ctWindow == null) {
+            ctWindow = new CodeTimeToolWindow(project);
+        }
         ContentFactoryImpl factoryImpl = new ContentFactoryImpl();
         Content content = factoryImpl.createContent(ctWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
         windowProject = project;
+        ctWindow.refresh();
     }
 
     private static void initTreeView(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        tv = new TreeView();
+        if (tv == null) {
+            tv = new SidebarTreeView();
+        }
         ContentFactoryImpl factoryImpl = new ContentFactoryImpl();
         Content content = factoryImpl.createContent(tv.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
         windowProject = project;
+        tv.refresh();
     }
 
-    private static void initialize() {
-        if (SidebarToolWindow.isJcefSupported()) {
-            if (ctWindow == null) {
-                initializeWebView();
-            }
-        } else {
-            if (tv == null) {
-                Project p = ProjectActivateListener.getCurrentProject();
-                if (p == null) {
-                    p = IntellijProjectManager.getFirstActiveProject();
-                }
-                com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(p).getToolWindow("Code Time");
-                if (toolWindow != null) {
-                    initTreeView(p, toolWindow);
-                }
+    private static void initSidebar() {
+        if (windowProject == null) {
+            windowProject = ProjectActivateListener.getCurrentProject();
+            if (windowProject == null) {
+                windowProject = IntellijProjectManager.getFirstActiveProject();
             }
         }
-    }
-
-    private static void initializeWebView() {
-        Project p = ProjectActivateListener.getCurrentProject();
-        if (p == null) {
-            p = IntellijProjectManager.getFirstActiveProject();
-        }
-        com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(p).getToolWindow("Code Time");
-        if (toolWindow != null) {
-            initWebView(p, toolWindow);
+        if (windowProject != null) {
+            com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("Code Time");
+            if (toolWindow != null) {
+                if (SidebarToolWindow.isJcefSupported()) {
+                    initWebView(windowProject, tw);
+                } else {
+                    initTreeView(windowProject, tw);
+                }
+            }
         }
     }
 
@@ -112,7 +101,7 @@ public class SidebarToolWindow implements ToolWindowFactory {
     }
 
     public static void openToolWindow() {
-        initializeWebView();
+        initSidebar();
         if (windowProject != null) {
             ApplicationManager.getApplication().invokeLater(() -> {
                 com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("Code Time");

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.software.codetime.toolwindows.codetime.SidebarTreeView">
+  <grid id="27dc6" binding="windowContent" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1144" height="770"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <scrollpane id="ce7e1" binding="onboardScrollPane">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <visible value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="f633a" binding="viewPanel" layout-manager="FormLayout">
+            <rowspec value="center:d:noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <colspec value="fill:d:grow"/>
+            <constraints/>
+            <properties>
+              <alignmentX value="0.5"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="61ab8" class="javax.swing.JLabel" binding="gettingStartedLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="&lt;html&gt;&lt;h3&gt;Getting started&lt;/h3&gt;&lt;/html&gt;"/>
+                </properties>
+              </component>
+              <component id="1cef" class="javax.swing.JProgressBar" binding="progressBar">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <maximumSize width="32767" height="15"/>
+                  <minimumSize width="10" height="15"/>
+                  <preferredSize width="146" height="15"/>
+                  <value value="40"/>
+                </properties>
+              </component>
+              <component id="29c8" class="javax.swing.JLabel" binding="stepOfLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <minimumSize width="33" height="20"/>
+                  <preferredSize width="33" height="20"/>
+                  <text value="1 of 2"/>
+                </properties>
+              </component>
+              <component id="443ce" class="javax.swing.JButton" binding="registerYourAccountButton" default-binding="true">
+                <constraints>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="Register your account"/>
+                </properties>
+              </component>
+              <component id="9363b" class="javax.swing.JLabel" binding="alreadyLabel">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="Already have an account?"/>
+                </properties>
+              </component>
+              <component id="d000c" class="javax.swing.JButton" binding="logInButton" default-binding="true">
+                <constraints>
+                  <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="Log in"/>
+                </properties>
+              </component>
+              <component id="6cf46" class="javax.swing.JLabel" binding="featuresTitleLabel">
+                <constraints>
+                  <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <maximumSize width="167" height="40"/>
+                  <minimumSize width="167" height="40"/>
+                  <preferredSize width="167" height="40"/>
+                  <text value="With Code Time, you can..."/>
+                </properties>
+              </component>
+              <component id="e397e" class="javax.swing.JButton" binding="readMoreOnGitHubButton" default-binding="true">
+                <constraints>
+                  <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="Read more on GitHub"/>
+                </properties>
+              </component>
+              <component id="226b" class="javax.swing.JLabel" binding="featuresListLabel">
+                <constraints>
+                  <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <forms top="0" left="4" bottom="0" right="0" defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <maximumSize width="250" height="260"/>
+                  <minimumSize width="200" height="260"/>
+                  <preferredSize width="250" height="260"/>
+                  <text value="&lt;html&gt;&lt;ul&gt;&lt;li style=&quot;padding-bottom: 4px&quot;&gt;Enable automatic flow mode to detect when you are in a high velocity coding session and automatically silence Slack, set yourself to away, protect time on your calendar, and more&lt;/li&gt; &lt;li style=&quot;padding-bottom: 4px&quot;&gt;Customize your profile, such as your work hours and office type, for advanced time tracking&lt;/li&gt; &lt;li style=&quot;padding-bottom: 4px&quot;&gt;Connect Outlook or Google Calendar to visualize your code time vs. meetings in a single calendar&lt;/li&gt; &lt;li style=&quot;padding-bottom: 4px&quot;&gt;Sync your data automatically across your devices&lt;/li&gt; &lt;li style=&quot;padding-bottom: 4px&quot;&gt;Integrate Slack to automatically mute notifications when you're in flow&lt;/li&gt;&lt;/ul&gt;&lt;/html&gt;"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+      <scrollpane id="11510" binding="connectedScrollPane">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <visible value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <scrollpane id="b0ed9">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="d8164" layout-manager="FormLayout">
+                <rowspec value="center:d:noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <rowspec value="top:3dlu:noGrow"/>
+                <rowspec value="center:max(d;4px):noGrow"/>
+                <colspec value="fill:d:grow"/>
+                <constraints/>
+                <properties>
+                  <alignmentX value="0.5"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a6e1e" class="javax.swing.JLabel" binding="flowModeTitleLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="&lt;html&gt;&lt;h3&gt;Flow Mode&lt;/h3&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="92404" class="javax.swing.JButton" binding="enterFlowModeButton">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms defaultalign-vert="false"/>
+                    </constraints>
+                    <properties>
+                      <label value="Enter Flow Mode"/>
+                      <text value="Enter Flow Mode"/>
+                    </properties>
+                  </component>
+                  <component id="5ec2f" class="javax.swing.JLabel" binding="connectSlackToMuteLinkLabel">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0" defaultalign-vert="false"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="28"/>
+                      <minimumSize width="75" height="28"/>
+                      <preferredSize width="296" height="28"/>
+                      <text value="&lt;html&gt;Connect a Slack workspace to mute distractions.&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="8debf" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="26"/>
+                      <minimumSize width="35" height="26"/>
+                      <preferredSize width="35" height="26"/>
+                      <requestFocusEnabled value="false"/>
+                      <text value="&lt;html&gt;&lt;h3&gt;Stats&lt;/h3&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="2581c" class="javax.swing.JToolBar$Separator">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="e2163" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="115" height="20"/>
+                      <minimumSize width="115" height="20"/>
+                      <preferredSize width="115" height="20"/>
+                      <text value="Data in your editor"/>
+                    </properties>
+                  </component>
+                  <component id="41aef" class="javax.swing.JLabel" binding="dashboardLinkLabel">
+                    <constraints>
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="68" height="24"/>
+                      <preferredSize width="68" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Dashboard&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="2c238" class="javax.swing.JLabel" binding="projectReportLinkLabel">
+                    <constraints>
+                      <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="45" height="24"/>
+                      <preferredSize width="93" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Project reports&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="24c73" class="javax.swing.JLabel" binding="moreAtSoftwareLinkLabel">
+                    <constraints>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="86" height="24"/>
+                      <preferredSize width="169" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;More data at Software.com&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="925de" class="javax.swing.JToolBar$Separator">
+                    <constraints>
+                      <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <forms/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="3d311" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="26"/>
+                      <minimumSize width="55" height="26"/>
+                      <preferredSize width="55" height="26"/>
+                      <text value="&lt;html&gt;&lt;h3&gt;Account&lt;/h3&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="7c302" class="javax.swing.JLabel" binding="emailAccountLabel">
+                    <constraints>
+                      <grid row="24" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="33" height="24"/>
+                      <minimumSize width="33" height="24"/>
+                      <preferredSize width="33" height="24"/>
+                      <text value="email"/>
+                    </properties>
+                  </component>
+                  <component id="5e3a" class="javax.swing.JLabel" binding="settingsLinkLabel">
+                    <constraints>
+                      <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="61" height="24"/>
+                      <preferredSize width="115" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Configure settings&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="70d6" class="javax.swing.JLabel" binding="toggleStatusLinkLabel">
+                    <constraints>
+                      <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="38" height="24"/>
+                      <preferredSize width="142" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Hide Code Time status&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="1a84e" class="javax.swing.JLabel" binding="documentationLinkLabel">
+                    <constraints>
+                      <grid row="32" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="95" height="24"/>
+                      <preferredSize width="95" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Documentation&lt;/a&gt;&lt;/html"/>
+                    </properties>
+                  </component>
+                  <component id="ca3bb" class="javax.swing.JLabel" binding="submitIssueLinkLabel">
+                    <constraints>
+                      <grid row="34" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="24"/>
+                      <minimumSize width="44" height="24"/>
+                      <preferredSize width="99" height="24"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;Submit an issue&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                  <component id="831c2" class="javax.swing.JLabel" binding="manageSlackLinkLabel">
+                    <constraints>
+                      <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="32"/>
+                      <minimumSize width="81" height="32"/>
+                      <preferredSize width="81" height="32"/>
+                      <text value="manageslack"/>
+                    </properties>
+                  </component>
+                  <component id="1a110" class="javax.swing.JLabel" binding="switchAccountsLinkLabel">
+                    <constraints>
+                      <grid row="26" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <forms top="0" left="4" bottom="0" right="0"/>
+                    </constraints>
+                    <properties>
+                      <maximumSize width="2147483647" height="32"/>
+                      <minimumSize width="57" height="32"/>
+                      <preferredSize width="101" height="32"/>
+                      <text value="&lt;html&gt;&lt;a href='#'&gt;Switch accounts&lt;/a&gt;&lt;/html&gt;"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </scrollpane>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
