@@ -3,6 +3,7 @@ package com.software.codetime.managers;
 import com.google.gson.JsonObject;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.application.ApplicationManager;
+import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
 import org.apache.commons.lang.StringUtils;
 import swdc.java.ops.http.ClientResponse;
 import swdc.java.ops.http.OpsHttpClient;
@@ -89,7 +90,7 @@ public class UserSessionManager {
         BrowserUtil.browse(url);
 
         AsyncManager.getInstance().executeOnceInSeconds(() -> {
-            checkAuthCompletion(10);}, 20);
+            checkAuthCompletion(10);}, 15);
     }
 
     private static void checkAuthCompletion(int tries) {

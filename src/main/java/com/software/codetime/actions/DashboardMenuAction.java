@@ -13,7 +13,7 @@ public class DashboardMenuAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
         ApplicationManager.getApplication().invokeLater(() -> {
-            UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time?view=summary");
+            UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time");
         });
     }
 
