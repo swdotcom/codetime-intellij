@@ -39,7 +39,7 @@ public class WebviewCommandHandler {
                 break;
             case "displayReadme":
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl("https://github.com/swdotcom/intellij-codetime");
+                    UtilManager.launchUrl("https://github.com/swdotcom/codetime-intellij#readme");
                 });
                 break;
             case "viewProjectReports":

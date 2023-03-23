@@ -1,6 +1,5 @@
 package com.software.codetime.main;
 
-import com.intellij.application.options.RegistryManager;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
@@ -21,7 +20,6 @@ import swdc.java.ops.model.ConfigOptions;
 import swdc.java.ops.snowplow.events.UIInteractionType;
 import swdc.java.ops.websockets.WebsocketClient;
 
-import javax.swing.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,11 +97,6 @@ public class Activator {
             EventTrackerManager.getInstance().trackEditorAction("editor", "activate");
         });
 
-        // show the readme on install
-        app.invokeLater(() -> {
-            readmeCheck();
-        });
-
         app.invokeLater(() -> {
             // set the end of the day notification
             EndOfDayManager.setEndOfDayNotification();
@@ -114,37 +107,20 @@ public class Activator {
         });
 
         app.invokeLater(() -> {
-            AsyncManager.getInstance().executeOnceInSeconds(() -> {
-                initializeSidbarToolWindow();
-            }, 2);
-        });
-
-        app.invokeLater(() -> {
             // add the editor listeners
             setupEditorListeners();
         });
+
+        // show the readme/sidebar on install
+        AsyncManager.getInstance().executeOnceInSeconds(() -> {
+            readmeCheck();
+        }, 5);
     }
 
     private void refreshSidebar() {
         ApplicationManager.getApplication().invokeLater(() -> {
             SidebarToolWindow.refresh(false);
         });
-    }
-
-    private void initializeSidbarToolWindow() {
-        Project p = ProjectActivateListener.getCurrentProject();
-        if (p == null) {
-            p = IntellijProjectManager.getFirstActiveProject();
-        }
-        com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(p).getToolWindow("Code Time");
-        if (toolWindow != null && SidebarToolWindow.windowProject != null) {
-            SidebarToolWindow.openToolWindow();
-        } else {
-            // retry
-            AsyncManager.getInstance().executeOnceInSeconds(() -> {
-                initializeSidbarToolWindow();
-            }, 2);
-        }
     }
 
     private void anonCheck() {
@@ -162,6 +138,13 @@ public class Activator {
                 // send an initial plugin payload
                 ReadmeManager.openReadmeFile(UIInteractionType.keyboard);
                 FileUtilManager.setItem("intellij_CtReadme", "true");
+
+                com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(
+                        ProjectActivateListener.getCurrentProject()
+                ).getToolWindow("Code Time");
+                if (toolWindow != null) {
+                    toolWindow.show();
+                }
             });
         }
     }
