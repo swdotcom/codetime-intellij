@@ -30,26 +30,6 @@ public class CodeTimeResourceHandler implements CefResourceHandler {
 
     private WebviewResourceState state = new WebviewClosedConnection();
 
-    private long ref = 0;
-
-    public long getNativeRef(String identifer) {
-        return ref;
-    }
-
-    public void setNativeRef(String identifer, long nativeRef) {
-        ref = nativeRef;
-    }
-
-    public boolean canSetCookie(CefCookie cookie)
-    {
-        return false;
-    }
-
-    public boolean canGetCookie(CefCookie cookie)
-    {
-        return false;
-    }
-
     @Override
     public boolean processRequest(CefRequest cefRequest, CefCallback cefCallback) {
         String url = cefRequest.getURL();
