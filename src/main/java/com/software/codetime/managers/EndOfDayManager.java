@@ -4,22 +4,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.intellij.openapi.application.ApplicationManager;
-import swdc.java.ops.http.ClientResponse;
-import swdc.java.ops.http.OpsHttpClient;
-import swdc.java.ops.manager.AsyncManager;
-import swdc.java.ops.manager.ConfigManager;
-import swdc.java.ops.manager.FileUtilManager;
-import swdc.java.ops.manager.UtilManager;
+import com.software.codetime.http.ClientResponse;
+import com.software.codetime.http.OpsHttpClient;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.List;
 
 public class EndOfDayManager {
-
     private static final int MIN_IN_SEC = 60;
     private static final int HOUR_IN_SEC = MIN_IN_SEC * 60;
 
@@ -99,7 +95,7 @@ public class EndOfDayManager {
 
     private static long getEndTimeSeconds(String end) {
         String[] hourMinParts = end.split(":");
-        return (Integer.parseInt(hourMinParts[0], 10) * HOUR_IN_SEC) + (Integer.parseInt(hourMinParts[1], 10) * MIN_IN_SEC);
+        return ((long) Integer.parseInt(hourMinParts[0], 10) * HOUR_IN_SEC) + ((long) Integer.parseInt(hourMinParts[1], 10) * MIN_IN_SEC);
     }
 
     private static long getSecondsUntilEndOfTheDay(Date d, long endSeconds) {

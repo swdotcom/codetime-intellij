@@ -8,20 +8,18 @@ import com.intellij.openapi.editor.event.DocumentEvent;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.software.codetime.managers.AsyncManager;
+import com.software.codetime.managers.EventTrackerManager;
 import com.software.codetime.managers.KeystrokeUtilManager;
+import com.software.codetime.models.CodeTime;
 import com.software.codetime.models.KeystrokeWrapper;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang.StringUtils;
-import swdc.java.ops.manager.AsyncManager;
-import swdc.java.ops.manager.EventTrackerManager;
-import swdc.java.ops.manager.UtilManager;
-import swdc.java.ops.model.CodeTime;
 
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-
 public class CodeTimeProcessor {
-
     public static final Logger LOG = Logger.getLogger("CodeTimeProcessor");
 
     private static CodeTimeProcessor instance = null;
@@ -285,7 +283,7 @@ public class CodeTimeProcessor {
         //
         CodeTime keystrokeCount = new CodeTime();
 
-        swdc.java.ops.model.Project keystrokeProject = new swdc.java.ops.model.Project( projectName, projectFilepath );
+        com.software.codetime.models.Project keystrokeProject = new com.software.codetime.models.Project( projectName, projectFilepath );
         keystrokeCount.setProject( keystrokeProject );
 
         //

@@ -1,10 +1,11 @@
 package com.software.codetime.managers;
 
 import com.google.gson.JsonObject;
-import swdc.java.ops.manager.SessionSummaryManager;
-import swdc.java.ops.model.SessionSummary;
-import swdc.java.ops.model.User;
-import swdc.java.ops.websockets.WebsocketMessageHandler;
+import com.software.codetime.models.FlowManager;
+import com.software.codetime.models.SessionSummary;
+import com.software.codetime.models.SessionSummaryManager;
+import com.software.codetime.models.User;
+import com.software.codetime.websockets.WebsocketMessageHandler;
 
 public class WebsocketMessageManager implements WebsocketMessageHandler {
     @Override

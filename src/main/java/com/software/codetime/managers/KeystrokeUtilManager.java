@@ -3,28 +3,26 @@ package com.software.codetime.managers;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
+import com.software.codetime.models.CodeTime;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang.StringUtils;
-import swdc.java.ops.manager.EventTrackerManager;
-import swdc.java.ops.manager.FileUtilManager;
-import swdc.java.ops.manager.UtilManager;
-import swdc.java.ops.model.*;
 
-import java.util.*;
+import java.util.Map;
 
 public class KeystrokeUtilManager {
-
     public static void processKeystrokes(CodeTime keystrokeCountInfo) {
         try {
             if (keystrokeCountInfo.hasData()) {
 
-                swdc.java.ops.model.Project project = keystrokeCountInfo.getProject();
+                com.software.codetime.models.Project project = keystrokeCountInfo.getProject();
 
                 // check to see if we need to find the main project if we don't have it
                 if (project == null || StringUtils.isBlank(project.getDirectory()) ||
                         project.getDirectory().equals("Untitled")) {
 
                     Editor[] editors = EditorFactory.getInstance().getAllEditors();
-                    if (editors != null && editors.length > 0) {
+                    if (editors != null) {
                         for (Editor editor : editors) {
                             Project editorProject = editor.getProject();
                             // update the code time project dir info
@@ -33,7 +31,7 @@ public class KeystrokeUtilManager {
                                 String projDir = editorProject.getProjectFilePath();
                                 String projName = editorProject.getName();
                                 if (project == null) {
-                                    project = new swdc.java.ops.model.Project(projName, projDir);
+                                    project = new com.software.codetime.models.Project(projName, projDir);
                                 } else {
                                     project.setDirectory(projDir);
                                     project.setName(projName);

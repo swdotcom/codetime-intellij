@@ -7,7 +7,6 @@ import com.intellij.openapi.application.ApplicationInfo;
 import java.util.Arrays;
 
 public class PluginInfo {
-
     public static String metrics_endpoint = "https://api.software.com";
     public static String app_url = "https://app.software.com";
     public static String software_dir = ".software";
@@ -81,7 +80,7 @@ public class PluginInfo {
 
     private static IdeaPluginDescriptor getIdeaPluginDescriptor() {
         IdeaPluginDescriptor[] descriptors = PluginManager.getPlugins();
-        if (descriptors != null && descriptors.length > 0) {
+        if (descriptors != null) {
             for (IdeaPluginDescriptor descriptor : descriptors) {
                 if (descriptor.getPluginId().getIdString().equals("com.softwareco.intellij.plugin")) {
                     return descriptor;

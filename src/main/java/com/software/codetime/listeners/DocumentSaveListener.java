@@ -3,9 +3,9 @@ package com.software.codetime.listeners;
 import com.intellij.openapi.vfs.newvfs.BulkFileListener;
 import com.intellij.openapi.vfs.newvfs.events.VFileContentChangeEvent;
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent;
+import com.software.codetime.managers.EventTrackerManager;
+import com.software.codetime.managers.GitEventsManager;
 import org.jetbrains.annotations.NotNull;
-import swdc.java.ops.manager.EventTrackerManager;
-import swdc.java.ops.manager.GitEventsManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +16,14 @@ public class DocumentSaveListener implements BulkFileListener {
     private static final Map<String, Long> lastChangeMap = new HashMap<>();
 
     @Override
-    public void before(@NotNull List<? extends VFileEvent > events) {
+    public void before(@NotNull List<? extends VFileEvent> events) {
 
     }
 
     @Override
     public void after(@NotNull List<? extends VFileEvent> events) {
         for (VFileEvent e : events) {
-            if (e.isFromSave() && e instanceof VFileContentChangeEvent) {
-                VFileContentChangeEvent event = (VFileContentChangeEvent)e;
+            if (e.isFromSave() && e instanceof VFileContentChangeEvent event) {
 
                 String filePath = e.getPath();
                 Long lastTimestamp = lastChangeMap.get(filePath);

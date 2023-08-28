@@ -4,9 +4,9 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
+import com.software.codetime.utils.UtilManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import swdc.java.ops.manager.UtilManager;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

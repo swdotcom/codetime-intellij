@@ -5,14 +5,11 @@ import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import swdc.java.ops.manager.UtilManager;
-import swdc.java.ops.model.Project;
-import swdc.java.ops.providers.IdeProject;
+import com.software.codetime.utils.UtilManager;
 
 import java.io.File;
 
 public class IntellijProject implements IdeProject {
-    @Override
     public Project getProjectForPath(String path) {
         Editor[] editors = EditorFactory.getInstance().getAllEditors();
         if (editors != null && editors.length > 0) {
@@ -76,4 +73,3 @@ public class IntellijProject implements IdeProject {
         return (fullFileName.contains(".")) ? fullFileName.substring(fullFileName.lastIndexOf(".") + 1) : "";
     }
 }
-

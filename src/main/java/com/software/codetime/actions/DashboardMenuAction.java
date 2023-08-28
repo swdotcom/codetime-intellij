@@ -3,10 +3,10 @@ package com.software.codetime.actions;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
+import com.software.codetime.managers.ConfigManager;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang.StringUtils;
-import swdc.java.ops.manager.ConfigManager;
-import swdc.java.ops.manager.FileUtilManager;
-import swdc.java.ops.manager.UtilManager;
 
 public class DashboardMenuAction extends AnAction {
 

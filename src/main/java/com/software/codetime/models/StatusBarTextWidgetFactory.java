@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
-public class StatusBarTextWidgetFactory  implements StatusBarWidgetFactory {
+public class StatusBarTextWidgetFactory implements StatusBarWidgetFactory {
     private StatusBarKpmTextWidget widget;
 
     @Override
@@ -26,7 +26,7 @@ public class StatusBarTextWidgetFactory  implements StatusBarWidgetFactory {
     }
 
     @Override
-    public boolean isAvailable(@NotNull Project project) {
+    public boolean isAvailable(@NotNull com.intellij.openapi.project.Project project) {
         return true;
     }
 

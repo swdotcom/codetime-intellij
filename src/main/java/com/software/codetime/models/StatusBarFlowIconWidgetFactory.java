@@ -4,11 +4,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.StatusBarWidgetFactory;
-import com.software.codetime.managers.FlowManager;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-
 
 public class StatusBarFlowIconWidgetFactory implements StatusBarWidgetFactory {
     private StatusBarKpmIconWidget widget;
@@ -26,7 +24,7 @@ public class StatusBarFlowIconWidgetFactory implements StatusBarWidgetFactory {
     }
 
     @Override
-    public boolean isAvailable(@NotNull Project project) {
+    public boolean isAvailable(@NotNull com.intellij.openapi.project.Project project) {
         return true;
     }
 

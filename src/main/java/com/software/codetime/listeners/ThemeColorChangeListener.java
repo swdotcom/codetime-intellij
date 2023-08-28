@@ -7,7 +7,6 @@ import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
 import org.jetbrains.annotations.Nullable;
 
 public class ThemeColorChangeListener implements EditorColorsListener {
-
     @Override
     public void globalSchemeChange(@Nullable EditorColorsScheme scheme) {
         // reload the sidebar if its in view

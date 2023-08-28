@@ -3,7 +3,7 @@ package com.software.codetime.main;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.editor.*;
+import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.project.Project;
@@ -11,20 +11,17 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.software.codetime.listeners.*;
 import com.software.codetime.managers.*;
-import com.software.codetime.models.IntellijProject;
-import com.software.codetime.models.KeystrokeWrapper;
+import com.software.codetime.models.*;
+import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.websockets.WebsocketClient;
 import org.apache.commons.lang.StringUtils;
-import swdc.java.ops.manager.*;
-import swdc.java.ops.model.ConfigOptions;
-import swdc.java.ops.snowplow.events.UIInteractionType;
-import swdc.java.ops.websockets.WebsocketClient;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Activator {
-
     public static final Logger log = Logger.getLogger("Activator");
 
     private static Activator instance = null;
@@ -133,7 +130,7 @@ public class Activator {
 
     private void readmeCheck() {
         String readmeDisplayed = FileUtilManager.getItem("intellij_CtReadme");
-        if (readmeDisplayed == null || Boolean.valueOf(readmeDisplayed) == false) {
+        if (readmeDisplayed == null || !Boolean.valueOf(readmeDisplayed)) {
             ApplicationManager.getApplication().invokeLater(() -> {
                 // send an initial plugin payload
                 ReadmeManager.openReadmeFile(UIInteractionType.keyboard);
@@ -141,7 +138,7 @@ public class Activator {
 
                 com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(
                         ProjectActivateListener.getCurrentProject()
-                ).getToolWindow("Code Time");
+                ).getToolWindow("CodeTime");
                 if (toolWindow != null) {
                     toolWindow.show();
                 }

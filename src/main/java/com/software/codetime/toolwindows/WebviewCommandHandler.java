@@ -2,18 +2,24 @@ package com.software.codetime.toolwindows;
 
 import com.google.gson.JsonObject;
 import com.intellij.openapi.application.ApplicationManager;
+import com.software.codetime.http.ClientResponse;
+import com.software.codetime.http.OpsHttpClient;
+import com.software.codetime.main.StatusBarManager;
 import com.software.codetime.managers.*;
+import com.software.codetime.models.AuthPromptManager;
+import com.software.codetime.models.FlowManager;
+import com.software.codetime.models.UserSessionManager;
+import com.software.codetime.snowplow.events.UIInteractionType;
+import com.software.codetime.snowplow.manager.SnowplowUtilManager;
 import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
-import swdc.java.ops.http.ClientResponse;
-import swdc.java.ops.http.OpsHttpClient;
-import swdc.java.ops.manager.*;
-import swdc.java.ops.snowplow.events.UIInteractionType;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 
 public class WebviewCommandHandler {
 
     public static boolean onConsoleCommand(String commandData) {
         try {
-            JsonObject jsonObject = UtilManager.gson.fromJson(commandData, JsonObject.class);
+            JsonObject jsonObject = SnowplowUtilManager.gson.fromJson(commandData, JsonObject.class);
             if (!jsonObject.isJsonNull() && jsonObject.has("cmd")) {
                 String cmd = jsonObject.get("cmd").getAsString();
                 jsonObject.remove("cmd");
