@@ -1,9 +1,6 @@
 package com.software.codetime.models;
 
-import swdc.java.ops.model.CodeTime;
-
-public class KeystrokeWrapper{
-
+public class KeystrokeWrapper {
     private static KeystrokeWrapper instance = null;
 
     KeystrokeCountWrapper wrapper = new KeystrokeCountWrapper();
@@ -59,5 +56,4 @@ public class KeystrokeWrapper{
         }
 
     }
-
 }

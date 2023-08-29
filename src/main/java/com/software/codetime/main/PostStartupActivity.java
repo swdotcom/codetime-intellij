@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.logging.Logger;
 
 public class PostStartupActivity implements StartupActivity {
-
     public static final Logger log = Logger.getLogger("PluginPostStartupActivity");
 
     @Override

@@ -1,1 +1,8 @@
-rootProject.name = "codetime-intellij"
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "codetime"

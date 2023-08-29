@@ -4,14 +4,13 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
+import com.software.codetime.utils.FileUtilManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import swdc.java.ops.manager.FileUtilManager;
 
 import java.awt.event.MouseEvent;
 
 public class StatusBarKpmTextWidget implements StatusBarWidget {
-
     public static final String KPM_TEXT_ID = "software.kpm.text";
     public static final String FLOW_TEXT_ID = "software.flow.text";
 
@@ -21,7 +20,7 @@ public class StatusBarKpmTextWidget implements StatusBarWidget {
 
     private final Consumer<MouseEvent> eventHandler;
 
-    private final TextPresentation presentation = new StatusPresentation();
+    private final StatusBarWidget.TextPresentation presentation = new StatusPresentation();
 
     public StatusBarKpmTextWidget(String id, final Runnable callback) {
         this.id = id;
@@ -87,7 +86,7 @@ public class StatusBarKpmTextWidget implements StatusBarWidget {
 
     @Nullable
     @Override
-    public WidgetPresentation getPresentation() {
+    public StatusBarWidget.WidgetPresentation getPresentation() {
         return presentation;
     }
 

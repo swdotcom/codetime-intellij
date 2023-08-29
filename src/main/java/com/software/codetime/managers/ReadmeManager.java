@@ -2,15 +2,15 @@ package com.software.codetime.managers;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
+import com.software.codetime.models.UserSessionManager;
+import com.software.codetime.snowplow.events.UIInteractionType;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.io.IOUtils;
-import swdc.java.ops.snowplow.entities.UIElementEntity;
-import swdc.java.ops.snowplow.events.UIInteractionType;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class ReadmeManager {
-
     public static void openReadmeFile(UIInteractionType interactionType) {
         ApplicationManager.getApplication().invokeLater(() -> {
             Project p = IntellijProjectManager.getOpenProject();
@@ -39,11 +39,10 @@ public class ReadmeManager {
                         } catch (Exception ex) {/*ignore*/}
                     }
                 }
-                StatusBarManager.launchFile(readmeFile);
+                UtilManager.launchFile(readmeFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
-
 }

@@ -1,13 +1,15 @@
 package com.software.codetime.toolwindows.codetime;
 
-import com.software.codetime.main.PluginInfo;
-import com.software.codetime.managers.AuthPromptManager;
-import com.software.codetime.managers.FlowManager;
-import com.software.codetime.managers.StatusBarManager;
+import com.software.codetime.main.StatusBarManager;
+import com.software.codetime.managers.ConfigManager;
+import com.software.codetime.managers.IntegrationManager;
+import com.software.codetime.models.AuthPromptManager;
+import com.software.codetime.models.FlowManager;
+import com.software.codetime.snowplow.events.UIInteractionType;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import swdc.java.ops.manager.*;
-import swdc.java.ops.snowplow.events.UIInteractionType;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -137,7 +139,7 @@ public class SidebarTreeView {
             public void mouseClicked(MouseEvent e) {
                 if (state == TreeViewState.CONNECT_SLACK) {
                     // connect a slack workspace
-                    UtilManager.launchUrl(PluginInfo.app_url + "/data_sources/integration_types/slack");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/data_sources/integration_types/slack");
                 } else {
                     AuthPromptManager.initiateSignupFlow();
                 }

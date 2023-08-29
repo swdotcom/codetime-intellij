@@ -73,7 +73,7 @@ public class SidebarToolWindow implements ToolWindowFactory {
             }
         }
         if (windowProject != null) {
-            com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("Code Time");
+            com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("CodeTime");
             if (toolWindow != null) {
                 if (SidebarToolWindow.isJcefSupported()) {
                     initWebView(windowProject, tw);
@@ -104,7 +104,7 @@ public class SidebarToolWindow implements ToolWindowFactory {
         initSidebar();
         if (windowProject != null) {
             ApplicationManager.getApplication().invokeLater(() -> {
-                com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("Code Time");
+                com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(windowProject).getToolWindow("CodeTime");
                 if (toolWindow != null) {
                     toolWindow.show();
                 }

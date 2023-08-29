@@ -1,25 +1,22 @@
 package com.software.codetime.toolwindows.codetime;
 
 import com.google.gson.JsonObject;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.software.codetime.managers.StatusBarManager;
+import com.software.codetime.http.ClientResponse;
+import com.software.codetime.http.OpsHttpClient;
+import com.software.codetime.main.StatusBarManager;
 import com.software.codetime.toolwindows.WebviewClosedConnection;
 import com.software.codetime.toolwindows.WebviewOpenedConnection;
 import com.software.codetime.toolwindows.WebviewResourceState;
 import com.software.codetime.toolwindows.codetime.html.*;
+import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang.StringUtils;
 import org.cef.callback.CefCallback;
 import org.cef.handler.CefResourceHandler;
 import org.cef.misc.IntRef;
 import org.cef.misc.StringRef;
-import org.cef.network.CefCookie;
 import org.cef.network.CefRequest;
 import org.cef.network.CefResponse;
-
-import swdc.java.ops.http.ClientResponse;
-import swdc.java.ops.http.OpsHttpClient;
-import swdc.java.ops.manager.FileUtilManager;
-import swdc.java.ops.manager.UtilManager;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
