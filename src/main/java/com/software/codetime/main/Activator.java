@@ -12,7 +12,6 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import com.software.codetime.listeners.*;
 import com.software.codetime.managers.*;
 import com.software.codetime.models.*;
-import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.websockets.WebsocketClient;
@@ -132,8 +131,6 @@ public class Activator {
         String readmeDisplayed = FileUtilManager.getItem("intellij_CtReadme");
         if (readmeDisplayed == null || !Boolean.valueOf(readmeDisplayed)) {
             ApplicationManager.getApplication().invokeLater(() -> {
-                // send an initial plugin payload
-                ReadmeManager.openReadmeFile(UIInteractionType.keyboard);
                 FileUtilManager.setItem("intellij_CtReadme", "true");
 
                 com.intellij.openapi.wm.ToolWindow toolWindow = ToolWindowManager.getInstance(
