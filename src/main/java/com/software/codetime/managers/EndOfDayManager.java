@@ -4,9 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.intellij.openapi.application.ApplicationManager;
-import com.software.codetime.http.ClientResponse;
-import com.software.codetime.http.OpsHttpClient;
-import com.software.codetime.utils.FileUtilManager;
+import com.software.codetime.models.User;
 import com.software.codetime.utils.UtilManager;
 
 import javax.swing.*;
@@ -20,16 +18,14 @@ public class EndOfDayManager {
     private static final int HOUR_IN_SEC = MIN_IN_SEC * 60;
 
     public static void setEndOfDayNotification() {
-        ClientResponse resp = OpsHttpClient.softwareGet("/users/profile", FileUtilManager.getItem("jwt"));
-        if (resp.isOk() && !resp.getJsonObj().isJsonNull()) {
-
+        User user = AccountManager.getUser();
+        if (user != null) {
             // get the profile
-            JsonElement workHours = null;
             long secondsUntilEndOfTheDay = 0;
 
             try {
-                workHours = resp.getJsonObj().get("work_hours").getAsJsonObject();
-                secondsUntilEndOfTheDay = getSecondsDelayUsingV2Format((JsonObject) workHours);
+                JsonObject workHoursObj = UtilManager.gson.fromJson(user.profile.work_hours, JsonObject.class);
+                secondsUntilEndOfTheDay = getSecondsDelayUsingV2Format(workHoursObj);
             } catch (Exception e) {
                 // the work hours may come in this format as well
                 // [[118800,147600],[205200,234000],[291600,320400],[378000,406800],[464400,493200]]

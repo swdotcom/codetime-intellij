@@ -11,4 +11,5 @@ public class User {
     public List<IntegrationConnection> integration_connections = new ArrayList<>();
     public String plugin_jwt = "";
     public UserPreferences preferences = new UserPreferences();
+    public Profile profile = new Profile();
 }
