@@ -9,10 +9,7 @@ import com.google.gson.JsonObject;
 import com.software.codetime.events.UserStateChangeModel;
 import com.software.codetime.http.ClientResponse;
 import com.software.codetime.http.OpsHttpClient;
-import com.software.codetime.models.IntegrationConnection;
-import com.software.codetime.models.PluginConnection;
-import com.software.codetime.models.User;
-import com.software.codetime.models.UserPreferences;
+import com.software.codetime.models.*;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
 import org.apache.commons.codec.binary.Base64;
@@ -162,6 +159,8 @@ public class AccountManager {
             }
             softwareUser.latest_plugin_connections = connections;
         }
+        JsonObject profile = userJson.get("profile").getAsJsonObject();
+        softwareUser.profile = UtilManager.gson.fromJson(profile, Profile.class);
         return softwareUser;
     }
 
