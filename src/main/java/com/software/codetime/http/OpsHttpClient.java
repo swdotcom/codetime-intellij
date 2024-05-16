@@ -1,6 +1,5 @@
 package com.software.codetime.http;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.software.codetime.managers.ConfigManager;

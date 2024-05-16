@@ -1,7 +1,5 @@
 package com.software.codetime.managers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -12,7 +10,6 @@ import com.software.codetime.http.OpsHttpClient;
 import com.software.codetime.models.*;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
@@ -23,7 +20,6 @@ import java.awt.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -159,8 +155,10 @@ public class AccountManager {
             }
             softwareUser.latest_plugin_connections = connections;
         }
-        JsonObject profile = userJson.get("profile").getAsJsonObject();
-        softwareUser.profile = UtilManager.gson.fromJson(profile, Profile.class);
+        if (userJson.has("profile")) {
+            JsonObject profile = userJson.get("profile").getAsJsonObject();
+            softwareUser.profile = UtilManager.gson.fromJson(profile, Profile.class);
+        }
         return softwareUser;
     }
 
@@ -201,27 +199,6 @@ public class AccountManager {
             }
         }
         return null;
-    }
-
-    public static String getDecodedUserIdFromJwt(String jwt) {
-        String stippedDownJwt = jwt.indexOf("JWT ") != -1 ? jwt.substring("JWT ".length()) : jwt;
-        try {
-            String[] split_string = stippedDownJwt.split("\\.");
-            String base64EncodedBody = split_string[1];
-
-            org.apache.commons.codec.binary.Base64 base64Url = new Base64(true);
-            String body = new String(base64Url.decode(base64EncodedBody));
-            Map<String, String> jsonMap;
-
-            ObjectMapper mapper = new ObjectMapper();
-            // convert JSON string to Map
-            jsonMap = mapper.readValue(body,
-                    new TypeReference<Map<String, String>>() {
-                    });
-            Object idVal = jsonMap.getOrDefault("id", "");
-            return idVal.toString();
-        } catch (Exception ex) {}
-        return "";
     }
 
     public static boolean checkRegistration(boolean showSignup, Runnable callback) {
