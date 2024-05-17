@@ -24,8 +24,13 @@ public class EndOfDayManager {
             long secondsUntilEndOfTheDay = 0;
 
             try {
-                JsonObject workHoursObj = UtilManager.gson.fromJson(user.profile.work_hours, JsonObject.class);
-                secondsUntilEndOfTheDay = getSecondsDelayUsingV2Format(workHoursObj);
+                if (user.profile != null && user.profile.work_hours != null) {
+                    JsonObject workHoursObj = UtilManager.gson.fromJson(user.profile.work_hours, JsonObject.class);
+                    secondsUntilEndOfTheDay = getSecondsDelayUsingV2Format(workHoursObj);
+                } else {
+                    // default of 5pm
+                    secondsUntilEndOfTheDay = getSecondsUntilEndOfTheDay(new Date(), HOUR_IN_SEC * 17);
+                }
             } catch (Exception e) {
                 // the work hours may come in this format as well
                 // [[118800,147600],[205200,234000],[291600,320400],[378000,406800],[464400,493200]]

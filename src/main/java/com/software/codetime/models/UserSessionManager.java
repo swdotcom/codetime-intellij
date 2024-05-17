@@ -3,13 +3,10 @@ package com.software.codetime.models;
 import com.google.gson.JsonObject;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.application.ApplicationManager;
-import com.software.codetime.managers.AccountManager;
-import com.software.codetime.managers.AsyncManager;
 import com.software.codetime.managers.ConfigManager;
 import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
-import com.software.codetime.websockets.handlers.AuthenticatedPluginUser;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -87,26 +84,6 @@ public class UserSessionManager {
         FileUtilManager.setItem("authType", loginType);
 
         BrowserUtil.browse(url);
-
-        AsyncManager.getInstance().executeOnceInSeconds(() -> {
-            checkAuthCompletion(10);}, 15);
-    }
-
-    private static void checkAuthCompletion(int tries) {
-        if (tries < 0) {
-            return;
-        }
-        String authCallbackState = FileUtilManager.getAuthCallbackState(false);
-        User user = AccountManager.getUser();
-        if (StringUtils.isNotBlank(authCallbackState) && (user == null || user.registered == 0)) {
-            tries--;
-            final int newTryCount = tries;
-            AsyncManager.getInstance().executeOnceInSeconds(() -> {
-                checkAuthCompletion(newTryCount);
-            }, 15);
-        } else if (StringUtils.isNotBlank(authCallbackState)) {
-            AuthenticatedPluginUser.handleAuthenticatedPluginUser(user);
-        }
     }
 
     public static void launchWebDashboard(UIInteractionType interactionType) {

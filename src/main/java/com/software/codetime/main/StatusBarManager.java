@@ -1,16 +1,11 @@
 package com.software.codetime.main;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
-import com.intellij.openapi.vfs.LocalFileSystem;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import com.software.codetime.managers.ConfigManager;
-import com.software.codetime.managers.IntellijProjectManager;
 import com.software.codetime.models.SessionSummary;
 import com.software.codetime.models.SessionSummaryManager;
 import com.software.codetime.models.StatusBarKpmIconWidget;
@@ -20,8 +15,6 @@ import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang3.StringUtils;
-
-import java.io.File;
 
 public class StatusBarManager {
     private static boolean showStatusText = true;

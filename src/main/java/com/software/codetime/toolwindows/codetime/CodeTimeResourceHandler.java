@@ -7,7 +7,8 @@ import com.software.codetime.main.StatusBarManager;
 import com.software.codetime.toolwindows.WebviewClosedConnection;
 import com.software.codetime.toolwindows.WebviewOpenedConnection;
 import com.software.codetime.toolwindows.WebviewResourceState;
-import com.software.codetime.toolwindows.codetime.html.*;
+import com.software.codetime.toolwindows.codetime.html.CssUtil;
+import com.software.codetime.toolwindows.codetime.html.LoadError;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang.StringUtils;
@@ -19,9 +20,9 @@ import org.cef.network.CefRequest;
 import org.cef.network.CefResponse;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class CodeTimeResourceHandler implements CefResourceHandler {
 

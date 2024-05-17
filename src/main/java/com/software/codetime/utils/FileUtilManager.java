@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
