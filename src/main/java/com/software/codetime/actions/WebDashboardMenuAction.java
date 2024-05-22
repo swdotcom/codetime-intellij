@@ -6,7 +6,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.software.codetime.models.UserSessionManager;
 import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.utils.FileUtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class WebDashboardMenuAction extends AnAction {
 

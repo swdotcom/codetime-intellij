@@ -1,11 +1,11 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij") version "1.15.0"
+    id("org.jetbrains.intellij") version "1.17.3"
 }
 
 group = "com.software.codetime"
-version = "2.8.35"
+version = "2.8.36"
 
 repositories {
     mavenCentral()
@@ -25,9 +25,8 @@ dependencies {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2022.2.5")
-    type.set("IC") // Target IDE Platform
-
+    version.set("2024.1")
+    type.set("IU") // Target IDE Platform
     plugins.set(listOf(/* Plugin Dependencies */))
 }
 
@@ -42,7 +41,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("222")
-        untilBuild.set("232.*")
+        sinceBuild.set("231")
+        untilBuild.set("241.*")
     }
 }

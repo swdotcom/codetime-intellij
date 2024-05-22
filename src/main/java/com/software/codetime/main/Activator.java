@@ -15,7 +15,7 @@ import com.software.codetime.models.*;
 import com.software.codetime.toolwindows.codetime.SidebarToolWindow;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.websockets.WebsocketClient;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -7,7 +7,7 @@ import com.software.codetime.managers.ConfigManager;
 import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.net.URLEncoder;
