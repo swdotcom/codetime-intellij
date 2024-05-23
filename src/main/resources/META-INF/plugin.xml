@@ -120,11 +120,10 @@
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="com.software.codetime.main.PostStartupActivity"/>
         <toolWindow id="Code Time" order="first" anchor="left"
-                    icon="/assets/paw-grey-rotated.png"
+                    icon="/assets/paw-grey.png"
                     factoryClass="com.software.codetime.toolwindows.codetime.SidebarToolWindow"/>
         <statusBarWidgetFactory id="buildCodeTimeIcon"
-                                implementation="com.software.codetime.models.StatusBarIconWidgetFactory"
-                                order="after writeActionWidget"/>
+                                implementation="com.software.codetime.models.StatusBarIconWidgetFactory"/>
         <statusBarWidgetFactory id="buildCodeTimeText"
                                 implementation="com.software.codetime.models.StatusBarTextWidgetFactory"
                                 order="after buildCodeTimeIcon"/>
@@ -140,14 +139,4 @@
         <listener class="com.software.codetime.listeners.ProjectActivateListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
-
-    <actions>
-        <group class="com.software.codetime.actions.CustomDefaultActionGroup" description="Code Time menu actions" id="CustomDefaultActionGroup" text="Code Time">
-            <add-to-group anchor="before" group-id="MainMenu" relative-to-action="HelpMenu"/>
-            <action class="com.software.codetime.actions.DashboardMenuAction" description="Configure your Flow Mode settings" id="SettingsMenuAction" text="Settings"/>
-            <action class="com.software.codetime.actions.DashboardMenuAction" description="View your latest coding metrics" id="DashboardMenuAction" text="Dashboard"/>
-            <action class="com.software.codetime.actions.SwitchAccountsMenuAction" description="Switch to a different account" id="SwitchAccountMenuAction" text="Switch Accounts"/>
-            <action class="com.software.codetime.actions.WebDashboardMenuAction" description="View your coding metrics at Software.com" id="WebDashboardMenuAction" text="More data at Software.com"/>
-        </group>
-    </actions>
 </idea-plugin>

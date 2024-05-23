@@ -24,7 +24,7 @@ public class CodeTimeProcessor {
 
     private static CodeTimeProcessor instance = null;
 
-    private static final int FOCUS_STATE_INTERVAL_SECONDS = 10;
+    private static final int FOCUS_STATE_INTERVAL_SECONDS = 5;
     private static final Pattern NEW_LINE_TAB_PATTERN = Pattern.compile("\n\t");
     private static final Pattern TAB_PATTERN = Pattern.compile("\t");
 

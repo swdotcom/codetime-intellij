@@ -6,7 +6,7 @@ public class ConfigOptions {
     public int pluginId = 4;
     public String pluginName = "";
     public String pluginVersion = "";
-    public String ideName = "";
+    public String ideName = "codetime-intellij";
     public String ideVersion = "";
     public String softwareDir = ".software";
     public String pluginType = "codetime";

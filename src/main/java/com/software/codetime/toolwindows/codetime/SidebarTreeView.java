@@ -176,14 +176,14 @@ public class SidebarTreeView {
         dashboardLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time");
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time/dashboard");
             }
         });
 
         projectReportLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url + "/reports");
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time/reports");
             }
         });
 
@@ -197,7 +197,7 @@ public class SidebarTreeView {
         settingsLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url + "/preferences");
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time/settings");
             }
         });
 
