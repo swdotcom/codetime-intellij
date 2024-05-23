@@ -2,7 +2,7 @@ package com.software.codetime.models;
 
 import com.software.codetime.snowplow.events.UIInteractionType;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 

@@ -6,7 +6,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.software.codetime.managers.ConfigManager;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class DashboardMenuAction extends AnAction {
 

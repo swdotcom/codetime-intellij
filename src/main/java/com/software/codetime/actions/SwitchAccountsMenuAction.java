@@ -5,7 +5,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
 import com.software.codetime.models.AuthPromptManager;
 import com.software.codetime.utils.FileUtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class SwitchAccountsMenuAction extends AnAction {
 

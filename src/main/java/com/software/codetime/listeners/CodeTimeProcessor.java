@@ -14,7 +14,7 @@ import com.software.codetime.managers.KeystrokeUtilManager;
 import com.software.codetime.models.CodeTime;
 import com.software.codetime.models.KeystrokeWrapper;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.logging.Logger;
 import java.util.regex.Pattern;

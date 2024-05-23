@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project;
 import com.software.codetime.models.CodeTime;
 import com.software.codetime.utils.FileUtilManager;
 import com.software.codetime.utils.UtilManager;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
