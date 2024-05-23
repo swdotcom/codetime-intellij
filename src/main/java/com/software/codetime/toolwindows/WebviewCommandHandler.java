@@ -52,7 +52,7 @@ public class WebviewCommandHandler {
                 break;
             case "viewProjectReports":
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/reports");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time/reports");
                 });
                 break;
             case "configureSettings":

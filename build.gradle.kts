@@ -5,15 +5,15 @@ plugins {
 }
 
 group = "com.software.codetime"
-version = "2.8.36"
+version = "2.8.37"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("com.snowplowanalytics:snowplow-java-tracker:1.0.0")
-    implementation("com.snowplowanalytics:snowplow-java-tracker:1.0.0") {
+    implementation("com.snowplowanalytics:snowplow-java-tracker:2.1.0")
+    implementation("com.snowplowanalytics:snowplow-java-tracker:2.1.0") {
         capabilities {
             requireCapability("com.snowplowanalytics:snowplow-java-tracker-okhttp-support")
         }

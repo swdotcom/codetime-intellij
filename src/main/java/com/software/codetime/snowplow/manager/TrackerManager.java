@@ -1,23 +1,17 @@
 package com.software.codetime.snowplow.manager;
 
 import com.snowplowanalytics.snowplow.tracker.DevicePlatform;
-import com.snowplowanalytics.snowplow.tracker.Subject;
+import com.snowplowanalytics.snowplow.tracker.Snowplow;
 import com.snowplowanalytics.snowplow.tracker.Tracker;
-import com.snowplowanalytics.snowplow.tracker.emitter.BatchEmitter;
-import com.snowplowanalytics.snowplow.tracker.emitter.Emitter;
-import com.snowplowanalytics.snowplow.tracker.emitter.EmitterCallback;
-import com.snowplowanalytics.snowplow.tracker.emitter.FailureType;
-import com.snowplowanalytics.snowplow.tracker.http.HttpClientAdapter;
-import com.snowplowanalytics.snowplow.tracker.http.OkHttpClientAdapter;
-import com.snowplowanalytics.snowplow.tracker.payload.TrackerPayload;
+import com.snowplowanalytics.snowplow.tracker.configuration.EmitterConfiguration;
+import com.snowplowanalytics.snowplow.tracker.configuration.NetworkConfiguration;
+import com.snowplowanalytics.snowplow.tracker.configuration.TrackerConfiguration;
+import com.software.codetime.managers.AsyncManager;
 import com.software.codetime.managers.CacheManager;
 import com.software.codetime.snowplow.client.Http;
 import com.software.codetime.snowplow.client.Response;
 import com.software.codetime.snowplow.events.*;
-import okhttp3.OkHttpClient;
 
-import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -43,39 +37,22 @@ public class TrackerManager {
                     ? resp.responseData.get("tracker_url_scheme").getAsString() : "https";
 
             String hostUrl = !Pattern.matches("^http[s]?:\\/\\/.*$", track_api_host) ? urlScheme + "://" + track_api_host : track_api_host;
-            OkHttpClient client = new OkHttpClient();
-            HttpClientAdapter adapter = OkHttpClientAdapter.builder()
-                    .url(hostUrl)
-                    .httpClient(client)
-                    .build();
 
-            Emitter emitter = BatchEmitter.builder()
-                    .callback(new EmitterCallback() {
-                        @Override
-                        public void onSuccess(List<TrackerPayload> payloads) {
+            tracker = Snowplow.createTracker(
+                    new TrackerConfiguration(namespace, appId).base64Encoded(false).platform(DevicePlatform.Desktop),
+                    new NetworkConfiguration(hostUrl),
+                    new EmitterConfiguration().batchSize(10).callback(new TrackerEmitterCallback()));
 
-                        }
+            // start in 15 seconds, every 1 minutes
+            AsyncManager.getInstance().scheduleService(
+                    () -> flushSnowplowEvents(), "flushSnowplowEvents", 15, 60);
 
-                        @Override
-                        public void onFailure(FailureType failureType, boolean willRetry, List<TrackerPayload> payloads) {
-                            LOG.warning("Failed sending event. Error code: " + failureType.toString() + ". Event List: " + payloads.toString());
-                        }
-                    })
-                    .httpClientAdapter(adapter)
-                    .bufferCapacity(1)
-                    .build();
+        }
+    }
 
-            // set the timezone
-            String tzId = Calendar.getInstance().getTimeZone().getID();
-            Subject subject = new Subject();
-            subject.setTimezone(tzId);
-
-            tracker = new Tracker.TrackerBuilder(emitter, namespace, appId)
-                    .platform(DevicePlatform.InternetOfThings)
-                    .base64(false)
-                    .subject(subject)
-                    .build();
-
+    private void flushSnowplowEvents() {
+        if (tracker != null) {
+            tracker.getEmitter().flushBuffer();
         }
     }
 

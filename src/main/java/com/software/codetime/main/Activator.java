@@ -42,7 +42,7 @@ public class Activator {
         log.log(Level.INFO, ConfigManager.plugin_name + ": Loaded v" + PluginInfo.getPluginId() + " - " + appName);
 
         ConfigOptions options = new ConfigOptions();
-        options.ideName = PluginInfo.IDE_NAME;
+        options.ideName = "codetime-intellij";
         options.pluginType = "codetime";
         options.pluginEditor = "intellij";
         options.appUrl = PluginInfo.app_url;
