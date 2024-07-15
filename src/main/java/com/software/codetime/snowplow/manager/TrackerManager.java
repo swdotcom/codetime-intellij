@@ -61,7 +61,6 @@ public class TrackerManager {
         CacheManager.jwt = event.authEntity != null ? event.authEntity.getJwt() : "";
         // build the contexts and send the event
         Unstructured contexts = event.buildContexts();
-        LOG.log(Level.INFO, "Processing code time event: " + contexts.toString());
         sendEvent(contexts);
     }
 
