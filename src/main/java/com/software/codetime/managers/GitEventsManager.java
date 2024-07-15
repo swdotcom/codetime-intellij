@@ -98,8 +98,7 @@ public class GitEventsManager {
     }
 
     public void trackUncommittedChanges(String path) {
-        Path p = (new File(path)).toPath();
-        EventTrackerManager.getInstance().trackUncommitedGitEvent(p);
+        EventTrackerManager.getInstance().trackUncommitedGitEvent();
     }
 
     private void onCommitHandler(Path path) {

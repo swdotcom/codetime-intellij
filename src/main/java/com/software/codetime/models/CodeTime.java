@@ -6,7 +6,7 @@ import com.software.codetime.utils.UtilManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CodeTime {
+public class CodeTime implements Cloneable {
     private String type = "Events";
 
     // non-hardcoded attributes
@@ -40,26 +40,9 @@ public class CodeTime {
         this.os = UtilManager.getOs();
     }
 
-    public CodeTime clone() {
-        CodeTime kc = new CodeTime();
-        kc.keystrokes = this.keystrokes;
-        kc.start = this.start;
-        kc.local_start = this.local_start;
-        kc.version = this.version;
-        kc.pluginId = this.pluginId;
-        kc.project = this.project;
-        kc.type = this.type;
-        kc.source = this.source;
-        kc.timezone = this.timezone;
-
-        kc.cumulative_editor_seconds = this.cumulative_editor_seconds;
-        kc.cumulative_session_seconds = this.cumulative_session_seconds;
-        kc.elapsed_seconds = this.elapsed_seconds;
-        kc.workspace_name = this.workspace_name;
-        kc.hostname = this.hostname;
-        kc.project_null_error = this.project_null_error;
-
-        return kc;
+    @Override
+    public CodeTime clone() throws CloneNotSupportedException {
+        return (CodeTime) super.clone();
     }
 
     public void resetData() {
