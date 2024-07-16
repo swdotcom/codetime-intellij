@@ -45,7 +45,7 @@ public class TrackerManager {
 
             // start in 15 seconds, every 1 minutes
             AsyncManager.getInstance().scheduleService(
-                    () -> flushSnowplowEvents(), "flushSnowplowEvents", 15, 60);
+                    this::flushSnowplowEvents, "flushSnowplowEvents", 15, 60);
 
         }
     }
@@ -54,10 +54,6 @@ public class TrackerManager {
         if (tracker != null) {
             tracker.getEmitter().flushBuffer();
         }
-    }
-
-    public String getSubjectTimezoneId() {
-        return tracker.getSubject().getSubject().get("tz");
     }
 
     public void trackCodeTimeEvent(CodetimeEvent event) {
@@ -69,14 +65,6 @@ public class TrackerManager {
     }
 
     public void trackEditorAction(EditorActionEvent event) {
-        // extract the jwt and set into the cache manager
-        CacheManager.jwt = event.authEntity != null ? event.authEntity.getJwt() : "";
-        // build the contexts and send the event
-        Unstructured contexts = event.buildContexts();
-        sendEvent(contexts);
-    }
-
-    public void trackUIInteraction(UIInteractionEvent event) {
         // extract the jwt and set into the cache manager
         CacheManager.jwt = event.authEntity != null ? event.authEntity.getJwt() : "";
         // build the contexts and send the event

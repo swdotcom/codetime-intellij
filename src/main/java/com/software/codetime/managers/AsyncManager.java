@@ -1,20 +1,23 @@
 package com.software.codetime.managers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class AsyncManager {
     private static AsyncManager instance = null;
     public static final Logger log = Logger.getLogger("AsyncManager");
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newFixedThreadPool(2);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final List<String> names = new ArrayList();
     private final List<Future<?>> futures = new ArrayList();
 
-    public AsyncManager() {
+    private AsyncManager() {
     }
 
     public static AsyncManager getInstance() {
@@ -34,7 +37,6 @@ public class AsyncManager {
             Future<?> future = this.scheduler.scheduleAtFixedRate(service, delayBeforeExecute, interval, TimeUnit.SECONDS);
             this.futures.add(future);
         }
-
     }
 
     public ScheduledFuture executeOnceInSeconds(Runnable service, long delayInSeconds) {
