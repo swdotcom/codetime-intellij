@@ -19,6 +19,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,7 +74,6 @@ public class Http {
         Response response = new Response();
         trackerInfo = SnowplowUtilManager.getTrackerInfo();
 
-        req.setHeader("Content-type", "application/json");
         req.addHeader("X-SWDC-Tracker-Version", trackerInfo.version);
         req.addHeader("X-SWDC-Tracker-Id", trackerInfo.artifactId);
 
@@ -85,7 +85,8 @@ public class Http {
         if (payload != null && req.getMethod().equals(HttpPost.METHOD_NAME)) {
             // add the payload to the request
             try {
-                StringEntity params = new StringEntity(payload);
+                StringEntity params = new StringEntity(payload, StandardCharsets.UTF_8);
+                params.setContentType("application/json");
                 ((HttpPost) req).setEntity(params);
             } catch (Exception e) {
                 LOG.log(Level.WARNING, "post payload format error: " + e);

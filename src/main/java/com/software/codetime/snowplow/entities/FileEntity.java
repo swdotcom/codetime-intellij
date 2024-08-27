@@ -1,7 +1,7 @@
 package com.software.codetime.snowplow.entities;
 
 import com.snowplowanalytics.snowplow.tracker.payload.SelfDescribingJson;
-import com.software.codetime.snowplow.manager.HashManager;
+import com.software.codetime.managers.HashManager;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
