@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.software.codetime"
-version = "2.8.38"
+version = "2.8.39"
 
 repositories {
     mavenCentral()
