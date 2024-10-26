@@ -24,7 +24,6 @@ public class Activator {
     public static final Logger log = Logger.getLogger("Activator");
 
     private static Activator instance = null;
-    private final AsyncManager asyncManager = AsyncManager.getInstance();
 
     public static Activator getInstance() {
         if (instance == null) {
@@ -147,8 +146,7 @@ public class Activator {
         ApplicationManager.getApplication().invokeLater(() -> {
             try {
                 // edit document
-                EditorFactory.getInstance().getEventMulticaster().addDocumentListener(
-                        new DocumentChangeListener(), this::disposeComponent);
+                EditorFactory.getInstance().getEventMulticaster().addDocumentListener(new DocumentChangeListener());
             } catch (Exception e) {
                 log.log(Level.WARNING, "Error initializing document listener: " + e.getMessage());
             }
@@ -197,18 +195,5 @@ public class Activator {
                 }
             }
         });
-    }
-
-    public void disposeComponent() {
-        // process any remaining updates
-        KeystrokeWrapper keystrokeManager = KeystrokeWrapper.getInstance();
-        if (keystrokeManager.getKeystrokeCount() != null) {
-            KeystrokeUtilManager.processKeystrokes(keystrokeManager.getKeystrokeCount());
-        }
-
-        // store the activate event
-        EventTrackerManager.getInstance().trackEditorAction("editor", "deactivate");
-
-        asyncManager.destroyServices();
     }
 }
