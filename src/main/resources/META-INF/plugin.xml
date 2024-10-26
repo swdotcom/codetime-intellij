@@ -118,7 +118,9 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="com.software.codetime.main.PostStartupActivity"/>
+        <backgroundPostStartupActivity id="ProjectActivator"
+                                       implementation="com.software.codetime.listeners.ProjectActivateListener"
+                                       order="last"/>
         <toolWindow id="Code Time" order="first" anchor="left"
                     icon="/assets/paw-grey.png"
                     factoryClass="com.software.codetime.toolwindows.codetime.SidebarToolWindow"/>
@@ -134,9 +136,4 @@
                                 implementation="com.software.codetime.models.StatusBarFlowTextWidgetFactory"
                                 order="after buildFlowIcon"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.software.codetime.listeners.ProjectActivateListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
