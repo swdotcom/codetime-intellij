@@ -3,7 +3,6 @@ package com.software.codetime.listeners;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectManagerListener;
 import com.intellij.openapi.startup.ProjectActivity;
 import com.software.codetime.main.Activator;
 import kotlin.Unit;
