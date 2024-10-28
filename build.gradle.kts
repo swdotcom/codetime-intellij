@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.software.codetime"
-version = "2.8.39"
+version = "2.8.40"
 
 repositories {
     mavenCentral()
@@ -42,6 +42,6 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("231")
-        untilBuild.set("241.*")
+        untilBuild.set("243.*")
     }
 }
