@@ -99,7 +99,7 @@ public class WebviewCommandHandler {
             case "connectSlack":
             case "disconnectSlackWorkspace":
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/data_sources/integration_types/slack");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time/integration_type/slack");
                 });
                 break;
             case "registerAccount":

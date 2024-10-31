@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CodeTime implements Cloneable {
-    private String type = "Events";
+    private final String type = "Events";
 
     // non-hardcoded attributes
     private Map<String, FileInfo> source = new HashMap<>();
     private String version;
-    private int pluginId;
+    private final int pluginId;
     public int keystrokes = 0;
     // start and end are in seconds
     public long start;

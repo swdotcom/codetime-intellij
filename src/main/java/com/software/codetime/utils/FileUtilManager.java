@@ -2,7 +2,6 @@ package com.software.codetime.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.software.codetime.managers.ConfigManager;
@@ -361,27 +360,13 @@ public class FileUtilManager {
         }
     }
 
-    public static JsonElement readAsJsonElement(String data) {
-        try {
-            JsonElement jsonElement = UtilManager.gson.fromJson(buildJsonReader(data), JsonElement.class);
-            return jsonElement;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public static JsonReader buildJsonReader(String data) {
-        JsonReader reader = new JsonReader(new StringReader(data));
-        reader.setLenient(true);
-        return reader;
+        return new JsonReader(new StringReader(data));
     }
 
     public static JsonReader buildJsonArrayReader(String data) {
         // Clean the data
-        data = cleanJsonArrayString(data);
-        JsonReader reader = new JsonReader(new StringReader(data));
-        reader.setLenient(true);
-        return reader;
+        return new JsonReader(new StringReader(cleanJsonArrayString(data)));
     }
 
     /**
