@@ -407,7 +407,7 @@ public class UtilManager {
             try {
                 if (isWindows()) {
                     try {
-                        runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
+                        runtime.exec(new String [] {"rundll32", "url.dll,FileProtocolHandler", url});
                     } catch (Exception e1) {
                         runtime.exec(new String[]{"cmd", "/c", "start", url});
                     }
@@ -426,10 +426,10 @@ public class UtilManager {
                         runtime.exec(new String[]{"sh", "-c", cmd.toString()});
 
                     } catch (Exception e1) {
-                        runtime.exec("xdg-open " + url);
+                        runtime.exec(new String[]{"xdg-open", url});
                     }
                 } else {
-                    runtime.exec("open " + url);
+                    runtime.exec(new String[]{"open", url});
                 }
             } catch (Exception e) {
                 LOG.log(Level.WARNING, "Unable to open url: {0}", e.getMessage());

@@ -139,7 +139,7 @@ public class SidebarTreeView {
             public void mouseClicked(MouseEvent e) {
                 if (state == TreeViewState.CONNECT_SLACK) {
                     // connect a slack workspace
-                    UtilManager.launchUrl(ConfigManager.app_url + "/data_sources/integration_types/slack");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time/integration_type/slack");
                 } else {
                     AuthPromptManager.initiateSignupFlow();
                 }
@@ -225,7 +225,7 @@ public class SidebarTreeView {
         manageSlackLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url + "/data_sources/integration_types/slack");
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time/integration_type/slack");
             }
         });
         switchAccountsLinkLabel.addMouseListener(new MouseAdapter() {

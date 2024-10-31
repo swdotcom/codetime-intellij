@@ -34,10 +34,6 @@ public class KeystrokeWrapper {
         wrapper.setProjectName(projectName);
     }
 
-    public KeystrokeCountWrapper getKeystrokeWrapper() {
-        return wrapper;
-    }
-
     public class KeystrokeCountWrapper {
         // KeystrokeCount cache metadata
         protected CodeTime keystrokeCount;
