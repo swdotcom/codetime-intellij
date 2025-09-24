@@ -16,8 +16,12 @@ import com.software.codetime.models.KeystrokeWrapper;
 import com.software.codetime.utils.UtilManager;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import java.awt.*;
+import java.awt.datatransfer.*;
 
 public class CodeTimeProcessor {
     public static final Logger LOG = Logger.getLogger("CodeTimeProcessor");
@@ -25,14 +29,16 @@ public class CodeTimeProcessor {
     private static CodeTimeProcessor instance = null;
 
     private static final int FOCUS_STATE_INTERVAL_SECONDS = 5;
+    private static final int AI_COMPLETION_MIN_CHARS = 3;
     private static final Pattern NEW_LINE_TAB_PATTERN = Pattern.compile("\n\t");
     private static final Pattern TAB_PATTERN = Pattern.compile("\t");
 
     public static boolean isCurrentlyActive = true;
+    private static final long LAST_CLIPBOARD_CHECK_MILLIS = 1000 * 10; // 10 seconds
+    private static long lastClipboardCheckTime = 0;
 
     private final EventTrackerManager tracker;
     private final KeystrokeWrapper keystrokeMgr;
-    private final AsyncManager asyncManager;
 
     public static CodeTimeProcessor getInstance() {
         if (instance == null) {
@@ -44,7 +50,7 @@ public class CodeTimeProcessor {
     private CodeTimeProcessor() {
         keystrokeMgr = KeystrokeWrapper.getInstance();
         tracker = EventTrackerManager.getInstance();
-        asyncManager = AsyncManager.getInstance();
+        AsyncManager asyncManager = AsyncManager.getInstance();
 
         final Runnable checkFocusStateTimer = () -> checkFocusState();
         asyncManager.scheduleService(
@@ -80,6 +86,59 @@ public class CodeTimeProcessor {
         return text.split("[\n|\r]").length;
     }
 
+    private boolean hasTabAndWhitespaceBeforeAlphanumeric(String text) {
+        if (StringUtils.isBlank(text)) {
+            return false;
+        }
+        return text.matches(".*[\\t\\s]+[a-zA-Z0-9].*");
+    }
+
+    private int getAICharactersDeletedFromContentChange(int rawTextLength, int sanitizedTextLength, int rangeLength) {
+        if (sanitizedTextLength > AI_COMPLETION_MIN_CHARS && sanitizedTextLength < rangeLength) {
+            return rangeLength - rawTextLength;
+        }
+        return 0;
+    }
+
+    private boolean containsNewline(String text) {
+        if (StringUtils.isBlank(text)) {
+            return false;
+        }
+        return text.contains("\n") || text.contains("\r");
+    }
+
+    private int getAlphanumericCharacterCount(String text) {
+        if (StringUtils.isBlank(text)) {
+            return 0;
+        }
+        return (int) text.chars()
+                .filter(Character::isLetterOrDigit)
+                .count();
+    }
+
+    private boolean isTextInClipboard(String text) {
+        if (StringUtils.isBlank(text.trim())) {
+            return false;
+        }
+
+        long currentTime = new Date().getTime();
+        if (lastClipboardCheckTime + LAST_CLIPBOARD_CHECK_MILLIS < currentTime) {
+            lastClipboardCheckTime = currentTime;
+            try {
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Transferable contents = clipboard.getContents(null);
+
+                if (contents != null && contents.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                    String clipboardText = (String) contents.getTransferData(DataFlavor.stringFlavor);
+                    return clipboardText.contains(text);
+                }
+            } catch (Exception e) {
+                LOG.warning("Failed to access clipboard: " + e.getMessage());
+            }
+        }
+        return false;
+    }
+
     private CodeTime getCurrentKeystrokeCount(String projectName, String projectDir) {
         CodeTime keystrokeCount = keystrokeMgr.getKeystrokeCount();
         if (keystrokeCount == null) {
@@ -97,89 +156,97 @@ public class CodeTimeProcessor {
 
     private void updateFileInfoMetrics(Document document, DocumentEvent documentEvent, CodeTime.FileInfo fileInfo, CodeTime keystrokeCount) {
 
-        String text = documentEvent.getNewFragment() != null ? documentEvent.getNewFragment().toString() : "";
-        String oldText = documentEvent.getOldFragment() != null ? documentEvent.getOldFragment().toString() : "";
+        String text = documentEvent.getNewFragment().toString();
+        String oldText = documentEvent.getOldFragment().toString();
 
-        int new_line_count = document.getLineCount();
+        int newLineCount = document.getLineCount();
         fileInfo.length = document.getTextLength();
 
-        // this will give us the positive char change length
-        int numKeystrokes = documentEvent.getNewLength();
         // this will tell us delete chars
-        int numDeleteKeystrokes = documentEvent.getOldLength();
+        int alphaNumericCharsDeleted = 0;
+        if (documentEvent.getOldLength() > 0 && documentEvent.getNewLength() == 0) {
+            alphaNumericCharsDeleted = getAlphanumericCharacterCount(oldText);
+        }
 
         // count the newline chars
         int linesAdded = getNewlineCount(text);
         int linesRemoved = getNewlineCount(oldText);
 
-        // check if its an auto indent
-        boolean hasAutoIndent = text.matches("^\\s{2,4}$") || TAB_PATTERN.matcher(text).find();
-        boolean newLineAutoIndent = text.matches("^\n\\s{2,4}$") || NEW_LINE_TAB_PATTERN.matcher(text).find();
+        boolean hasAutoCompleteCharacters = hasTabAndWhitespaceBeforeAlphanumeric(text);
+        boolean isInClipboard = isTextInClipboard(text);
+        int alphaNumericCharsAdded = getAlphanumericCharacterCount(text);
+        int rangeLength = (alphaNumericCharsDeleted > 0 && alphaNumericCharsAdded > 0) ? alphaNumericCharsDeleted : 0;
+        int aiCharactersDeleted = getAICharactersDeletedFromContentChange(text.length(), alphaNumericCharsAdded, rangeLength);
+        boolean isAiCompletion = hasAutoCompleteCharacters && !isInClipboard && alphaNumericCharsAdded > AI_COMPLETION_MIN_CHARS;
 
-        // update the deletion keystrokes if there are lines removed
-        numDeleteKeystrokes = numDeleteKeystrokes >= linesRemoved ? numDeleteKeystrokes - linesRemoved : numDeleteKeystrokes;
+        if (text.matches(".*[\\t]+") && !isAiCompletion) {
+            fileInfo.auto_indents += 1;
+        }
 
-        // event updates
-        if (newLineAutoIndent) {
-            // it's a new line with auto-indent
-            fileInfo.auto_indents += 1;
-            fileInfo.linesAdded += 1;
-        } else if (hasAutoIndent) {
-            // it's an auto indent action
-            fileInfo.auto_indents += 1;
-        } else if (linesAdded == 1) {
-            // it's a single new line action (single_adds)
-            fileInfo.single_adds += 1;
-            fileInfo.linesAdded += 1;
-        } else if (linesAdded > 1) {
-            // it's a multi line paste action (multi_adds)
-            fileInfo.linesAdded += linesAdded;
+        // deletes
+        updateLinesAndCharactersRemoved(alphaNumericCharsDeleted, alphaNumericCharsAdded, linesRemoved, aiCharactersDeleted, fileInfo);
+
+        // adds
+        updateLinesAndCharactersAdded(isAiCompletion, isInClipboard, linesAdded, alphaNumericCharsAdded, fileInfo);
+
+        fileInfo.lines = newLineCount;
+        fileInfo.keystrokes += 1;
+        keystrokeCount.keystrokes += 1;
+    }
+
+    private void updateLinesAndCharactersAdded(boolean isAiCompletion, boolean isInClipboard, int linesAdded, int alphaNumericCharsAdded, CodeTime.FileInfo fileInfo) {
+        if (isAiCompletion) {
+            fileInfo.ai_lines_added += linesAdded;
+            fileInfo.ai_characters_added += alphaNumericCharsAdded;
+        } else {
+            fileInfo.lines_added += linesAdded;
+            fileInfo.characters_added += alphaNumericCharsAdded;
+        }
+
+        if (isInClipboard) {
             fileInfo.paste += 1;
-            fileInfo.multi_adds += 1;
-            fileInfo.is_net_change = true;
-            fileInfo.characters_added += Math.abs(numKeystrokes - linesAdded);
-        } else if (numDeleteKeystrokes > 0 && numKeystrokes > 0) {
-            // it's a replacement
-            fileInfo.replacements += 1;
-            fileInfo.characters_added += numKeystrokes;
-            fileInfo.characters_deleted += numDeleteKeystrokes;
-        } else if (numKeystrokes > 1) {
-            // pasted characters (multi_adds)
-            fileInfo.paste += 1;
-            fileInfo.multi_adds += 1;
-            fileInfo.is_net_change = true;
-            fileInfo.characters_added += numKeystrokes;
-        } else if (numKeystrokes == 1) {
+        }
+
+        if (alphaNumericCharsAdded == 1) {
             // it's a single keystroke action (single_adds)
             fileInfo.add += 1;
             fileInfo.single_adds += 1;
-            fileInfo.characters_added += 1;
+        } else if (linesAdded == 1) {
+            fileInfo.single_adds += 1;
+        } else if (linesAdded > 1) {
+            fileInfo.multi_adds += 1;
+            fileInfo.is_net_change = true;
+        }
+    }
+
+    private void updateLinesAndCharactersRemoved(int alphaNumericCharsDeleted, int alphaNumericCharsAdded, int linesRemoved, int aiCharactersDeleted, CodeTime.FileInfo fileInfo) {
+        if (aiCharactersDeleted > 0) {
+            fileInfo.ai_characters_reverted += aiCharactersDeleted;
+            fileInfo.ai_lines_reverted += linesRemoved;
+        } else {
+            fileInfo.characters_deleted += alphaNumericCharsDeleted;
+            fileInfo.lines_removed += linesRemoved;
+        }
+        if (alphaNumericCharsDeleted > 0 && alphaNumericCharsAdded > 0) {
+            // it's a replacement
+            fileInfo.replacements += 1;
         } else if (linesRemoved == 1) {
             // it's a single line deletion
-            fileInfo.linesRemoved += 1;
+            fileInfo.lines_removed += 1;
             fileInfo.single_deletes += 1;
-            fileInfo.characters_deleted += numDeleteKeystrokes;
         } else if (linesRemoved > 1) {
             // it's a multi line deletion and may contain characters
-            fileInfo.characters_deleted += numDeleteKeystrokes;
             fileInfo.multi_deletes += 1;
             fileInfo.is_net_change = true;
-            fileInfo.linesRemoved += linesRemoved;
-        } else if (numDeleteKeystrokes == 1) {
+        } else if (alphaNumericCharsDeleted == 1) {
             // it's a single character deletion action
             fileInfo.delete += 1;
             fileInfo.single_deletes += 1;
-            fileInfo.characters_deleted += 1;
-        } else if (numDeleteKeystrokes > 1) {
+        } else if (alphaNumericCharsDeleted > 1) {
             // it's a multi character deletion action
             fileInfo.multi_deletes += 1;
             fileInfo.is_net_change = true;
-            fileInfo.characters_deleted += numDeleteKeystrokes;
         }
-
-        fileInfo.lines = new_line_count;
-        fileInfo.keystrokes += 1;
-        keystrokeCount.keystrokes += 1;
     }
 
     // this is used to close unended files
@@ -235,43 +302,45 @@ public class CodeTimeProcessor {
         ApplicationManager.getApplication().executeOnPooledThread(() -> {
 
             FileDocumentManager instance = FileDocumentManager.getInstance();
-            if (instance != null) {
-                VirtualFile file = instance.getFile(document);
-                if (file != null && !file.isDirectory()) {
-                    Editor[] editors = EditorFactory.getInstance().getEditors(document);
-                    if (editors != null && editors.length > 0) {
-                        String fileName = file.getPath();
-                        Project project = editors[0].getProject();
 
-                        if (project != null) {
+            VirtualFile file = instance.getFile(document);
+            if (file == null) {
+                return;
+            }
 
-                            // get the current keystroke count obj
-                            CodeTime keystrokeCount =
-                                    getCurrentKeystrokeCount(project.getName(), project.getProjectFilePath());
+            if (!file.isDirectory()) {
+                Editor[] editors = EditorFactory.getInstance().getEditors(document);
+                if (editors.length > 0) {
+                    String fileName = file.getPath();
+                    Project project = editors[0].getProject();
 
-                            // check whether it's a code time file or not
-                            // .*\.software.*(data\.json|session\.json|latestKeystrokes\.json|ProjectContributorCodeSummary\.txt|CodeTime\.txt|SummaryInfo\.txt|events\.json|fileChangeSummary\.json)
-                            boolean skip = file == null || file.equals("") || fileName.matches(".*\\.software.*(data\\.json|session\\.json|latestKeystrokes\\.json|ProjectContributorCodeSummary\\.txt|CodeTime\\.txt|SummaryInfo\\.txt|events\\.json|fileChangeSummary\\.json)");
+                    if (project != null) {
 
-                            if (!skip && keystrokeCount != null) {
+                        // get the current keystroke count obj
+                        CodeTime keystrokeCount = getCurrentKeystrokeCount(project.getName(), project.getProjectFilePath());
 
-                                CodeTime.FileInfo fileInfo = keystrokeCount.getSourceByFileName(fileName);
-                                if (StringUtils.isBlank(fileInfo.syntax)) {
-                                    // get the grammar
-                                    try {
-                                        String fileType = file.getFileType().getName();
-                                        if (fileType != null && !fileType.equals("")) {
-                                            fileInfo.syntax = fileType;
-                                        }
-                                    } catch (Exception e) {}
-                                }
+                        // check whether it's a code time file or not
+                        // .*\.software.*(data\.json|session\.json|latestKeystrokes\.json|ProjectContributorCodeSummary\.txt|CodeTime\.txt|SummaryInfo\.txt|events\.json|fileChangeSummary\.json)
+                        boolean skip = fileName.matches(".*\\.software.*(data\\.json|session\\.json|latestKeystrokes\\.json|ProjectContributorCodeSummary\\.txt|CodeTime\\.txt|SummaryInfo\\.txt|events\\.json|fileChangeSummary\\.json)");
 
-                                updateFileInfoMetrics(document, documentEvent, fileInfo, keystrokeCount);
+                        if (!skip && keystrokeCount != null) {
+
+                            CodeTime.FileInfo fileInfo = keystrokeCount.getSourceByFileName(fileName);
+                            if (StringUtils.isBlank(fileInfo.syntax)) {
+                                // get the grammar
+                                try {
+                                    String fileType = file.getFileType().getName();
+                                    if (!fileType.isEmpty()) {
+                                        fileInfo.syntax = fileType;
+                                    }
+                                } catch (Exception e) {}
                             }
+
+                            updateFileInfoMetrics(document, documentEvent, fileInfo, keystrokeCount);
                         }
                     }
-
                 }
+
             }
         });
     }

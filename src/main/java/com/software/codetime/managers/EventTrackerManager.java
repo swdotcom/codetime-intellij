@@ -36,9 +36,7 @@ public class EventTrackerManager {
             this.ideProject = ideProject;
             trackerMgr = new TrackerManager(
                     ConfigManager.metrics_endpoint, "CodeTime", ConfigManager.ide_name);
-            if (trackerMgr != null) {
-                ready = true;
-            }
+            ready = true;
         } catch (Exception e) {
             log.warning("Error initializing the " + ConfigManager.plugin_name + " tracker: " + e.getMessage());
         }
@@ -56,6 +54,10 @@ public class EventTrackerManager {
             for ( CodeTime.FileInfo fileInfoData : fileInfoDataSet.values() ) {
                 CodetimeEvent event = new CodetimeEvent();
 
+                if (StringUtils.isBlank(event.authEntity.getJwt())) {
+                    continue; // skip the iteration if no JWT
+                }
+
                 event.characters_added = fileInfoData.characters_added;
                 event.characters_deleted = fileInfoData.characters_deleted;
                 event.single_adds = fileInfoData.single_adds;
@@ -67,8 +69,13 @@ public class EventTrackerManager {
                 event.is_net_change = fileInfoData.is_net_change;
 
                 event.keystrokes = fileInfoData.keystrokes;
-                event.lines_added = fileInfoData.linesAdded;
-                event.lines_deleted = fileInfoData.linesRemoved;
+                event.lines_added = fileInfoData.lines_added;
+                event.lines_deleted = fileInfoData.lines_removed;
+
+                event.ai_characters_added = fileInfoData.ai_characters_added;
+                event.ai_lines_added = fileInfoData.ai_lines_added;
+                event.ai_characters_reverted = fileInfoData.ai_characters_reverted;
+                event.ai_lines_reverted = fileInfoData.ai_lines_reverted;
 
                 Date startDate = new Date(fileInfoData.start * 1000);
                 event.start_time = DateTimeFormatter.ISO_INSTANT.format(startDate.toInstant());
@@ -82,9 +89,6 @@ public class EventTrackerManager {
                 event.pluginEntity = this.getPluginEntity();
                 event.repoEntity = this.getRepoEntity(resourceInfo);
 
-                if (StringUtils.isBlank(event.authEntity.getJwt())) {
-                    System.out.println("Event sending a blank JWT: " + event);
-                }
                 trackerMgr.trackCodeTimeEvent(event);
             }
         }, 0);
