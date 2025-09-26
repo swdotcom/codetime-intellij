@@ -63,27 +63,29 @@ public class CodeTime implements Cloneable {
 
 
     public static class FileInfo {
-        public Integer add = 0;
-        public Integer paste = 0;
-        public Integer open = 0;
-        public Integer close = 0;
-        public Integer delete = 0;
-        public Integer length = 0;
-        public Integer netkeys = 0;
-        public Integer lines = 0;
-        public Integer linesAdded = 0;
-        public Integer linesRemoved = 0;
-        public Integer keystrokes = 0;
+        public int add = 0;
+        public int paste = 0;
+        public int open = 0;
+        public int close = 0;
+        public int delete = 0;
+        public int length = 0;
+        public int lines = 0;
+        public int lines_added = 0;
+        public int ai_lines_added = 0;
+        public int ai_lines_reverted = 0;
+        public int lines_removed = 0;
+        public int keystrokes = 0;
         public String syntax = "";
         public long start = 0;
         public long end = 0;
         public long local_start = 0;
         public long local_end = 0;
-        public long duration_seconds = 0;
         public String fsPath = "";
         public String name = "";
         // new attributes for snowplow
         public int characters_added = 0; // chars added
+        public int ai_characters_added = 0; // ai chars added
+        public int ai_characters_reverted = 0; // ai chars reverted
         public int characters_deleted = 0; // chars deleted
         public int single_deletes = 0; // single char or single line delete
         public int multi_deletes = 0; // multi char or multi line delete
@@ -95,13 +97,38 @@ public class CodeTime implements Cloneable {
 
         @Override
         public String toString() {
-            return "FileInfo [add=" + add + ", paste=" + paste + ", open=" + open
-                    + "\n, close=" + close + ", delete=" + delete + ", length=" + length + ", lines=" + lines
-                    + "\n, linesAdded=" + linesAdded + ", linesRemoved=" + linesRemoved + ", keystrokes=" + keystrokes
-                    + "\n, syntax=" + syntax + ", characters_added=" + characters_added + ", characters_deleted="
-                    + characters_deleted + "\n, single_deletes=" + single_deletes + ", multi_deletes=" + multi_deletes
-                    + "\n, single_adds=" + single_adds + ", multi_adds=" + multi_adds + ", auto_indents=" + auto_indents
-                    + "\n, replacements=" + replacements + ", is_net_change=" + is_net_change + "]";
+            return "FileInfo {" +
+                    "\n  add = " + add +
+                    "\n  paste = " + paste +
+                    "\n  open = " + open +
+                    "\n  close = " + close +
+                    "\n  delete = " + delete +
+                    "\n  length = " + length +
+                    "\n  lines = " + lines +
+                    "\n  lines_added = " + lines_added +
+                    "\n  ai_lines_added = " + ai_lines_added +
+                    "\n  ai_lines_reverted = " + ai_lines_reverted +
+                    "\n  lines_removed = " + lines_removed +
+                    "\n  keystrokes = " + keystrokes +
+                    "\n  syntax = '" + syntax + '\'' +
+                    "\n  start = " + start +
+                    "\n  end = " + end +
+                    "\n  local_start = " + local_start +
+                    "\n  local_end = " + local_end +
+                    "\n  fsPath = '" + fsPath + '\'' +
+                    "\n  name = '" + name + '\'' +
+                    "\n  characters_added = " + characters_added +
+                    "\n  ai_characters_added = " + ai_characters_added +
+                    "\n  ai_characters_reverted = " + ai_characters_reverted +
+                    "\n  characters_deleted = " + characters_deleted +
+                    "\n  single_deletes = " + single_deletes +
+                    "\n  multi_deletes = " + multi_deletes +
+                    "\n  single_adds = " + single_adds +
+                    "\n  multi_adds = " + multi_adds +
+                    "\n  auto_indents = " + auto_indents +
+                    "\n  replacements = " + replacements +
+                    "\n  is_net_change = " + is_net_change +
+                    "\n}";
         }
     }
 

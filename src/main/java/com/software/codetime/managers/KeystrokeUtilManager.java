@@ -53,22 +53,20 @@ public class KeystrokeUtilManager {
                 project.getDirectory().equals("Untitled")) {
 
             Editor[] editors = EditorFactory.getInstance().getAllEditors();
-            if (editors != null) {
-                for (Editor editor : editors) {
-                    Project editorProject = editor.getProject();
-                    // update the code time project dir info
-                    if (editorProject != null && StringUtils.isNotBlank(editorProject.getName())) {
+            for (Editor editor : editors) {
+                Project editorProject = editor.getProject();
+                // update the code time project dir info
+                if (editorProject != null && StringUtils.isNotBlank(editorProject.getName())) {
 
-                        String projDir = editorProject.getProjectFilePath();
-                        String projName = editorProject.getName();
-                        if (project == null) {
-                            project = new com.software.codetime.models.Project(projName, projDir);
-                        } else {
-                            project.setDirectory(projDir);
-                            project.setName(projName);
-                        }
-                        break;
+                    String projDir = editorProject.getProjectFilePath();
+                    String projName = editorProject.getName();
+                    if (project == null) {
+                        project = new com.software.codetime.models.Project(projName, projDir);
+                    } else {
+                        project.setDirectory(projDir);
+                        project.setName(projName);
                     }
+                    break;
                 }
             }
         }

@@ -33,11 +33,7 @@ public class TrackerManager {
         // setup the snowplow emitter and tracker
         if (resp.ok && resp.responseData != null) {
             String track_api_host = resp.responseData.get("tracker_api").getAsString();
-            String urlScheme = resp.responseData.has("tracker_url_scheme")
-                    ? resp.responseData.get("tracker_url_scheme").getAsString() : "https";
-
-            String hostUrl = !Pattern.matches("^http[s]?:\\/\\/.*$", track_api_host) ? urlScheme + "://" + track_api_host : track_api_host;
-
+            String hostUrl = "https://" + track_api_host;
             tracker = Snowplow.createTracker(
                     new TrackerConfiguration(namespace, appId).base64Encoded(false).platform(DevicePlatform.Desktop),
                     new NetworkConfiguration(hostUrl),
