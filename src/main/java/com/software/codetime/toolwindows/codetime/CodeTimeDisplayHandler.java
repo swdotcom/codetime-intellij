@@ -15,7 +15,6 @@ public class CodeTimeDisplayHandler implements CefDisplayHandler {
     public void onTitleChange(CefBrowser cefBrowser, String s) {
     }
 
-    @Override
     public void onFullscreenModeChange(CefBrowser browser, boolean fullscreen) {
     }
 
