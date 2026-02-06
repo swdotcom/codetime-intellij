@@ -145,7 +145,8 @@ public class StatusBarManager {
         if (kpmIconWidget != null) {
             boolean changed = false;
 
-            if (icon != null && !icon.equals(kpmIconWidget.getIconName())) {
+            String currentIconName = kpmIconWidget.getIconName();
+            if ((icon == null && currentIconName != null) || (icon != null && !icon.equals(currentIconName))) {
                 kpmIconWidget.updateIcon(icon);
                 changed = true;
             }
