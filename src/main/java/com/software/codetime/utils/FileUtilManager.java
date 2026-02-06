@@ -128,7 +128,7 @@ public class FileUtilManager {
                 }
             }
         } catch (Exception e) {
-            // If we fail to read/compare, fall back to writing.
+            log.warning("swdc.java.ops: Error updating session summary file content: " + e.getMessage());
         }
 
         writeData(file, o);
