@@ -176,7 +176,7 @@ public class SidebarTreeView {
         dashboardLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url + "/code_time/dashboard");
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time");
             }
         });
 
@@ -190,7 +190,7 @@ public class SidebarTreeView {
         moreAtSoftwareLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl(ConfigManager.app_url);
+                UtilManager.launchUrl(ConfigManager.app_url + "/code_time");
             }
         });
 
@@ -211,7 +211,7 @@ public class SidebarTreeView {
         documentationLinkLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl("https://github.com/swdotcom/intellij-codetime");
+                UtilManager.launchUrl("https://github.com/swdotcom/codetime-intellij");
             }
         });
 

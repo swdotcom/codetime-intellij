@@ -59,11 +59,11 @@ public class EndOfDayManager {
 
             if (choice == 1) {
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/preferences");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time/settings");
                 });
             } else if (choice == 0) {
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time");
                 });
             }
         });

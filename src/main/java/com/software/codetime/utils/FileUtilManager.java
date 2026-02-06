@@ -13,6 +13,7 @@ import org.apache.http.HttpEntity;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -106,6 +107,31 @@ public class FileUtilManager {
                 writer.close();
             } catch (Exception ex) {/*ignore*/}
         }
+    }
+
+    /**
+     * Writes JSON content only when it changed.
+     * This reduces disk churn and helps avoid watch-service feedback loops.
+     */
+    public static synchronized void writeDataIfChanged(String file, Object o) {
+        if (o == null) {
+            return;
+        }
+
+        final String content = UtilManager.gson.toJson(o);
+        try {
+            Path path = Paths.get(file);
+            if (Files.exists(path)) {
+                String existing = Files.readString(path, StandardCharsets.UTF_8);
+                if (content.equals(existing)) {
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            // If we fail to read/compare, fall back to writing.
+        }
+
+        writeData(file, o);
     }
 
     public static void appendData(String file, Object o) {

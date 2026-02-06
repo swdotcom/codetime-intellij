@@ -72,7 +72,7 @@ public class WebviewCommandHandler {
                 break;
             case "viewDashboard":
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/dashboard/code_time");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time");
                 });
                 break;
             case "softwareKpmDashboard":

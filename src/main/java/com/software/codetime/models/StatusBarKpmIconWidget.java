@@ -19,6 +19,7 @@ public class StatusBarKpmIconWidget implements StatusBarWidget {
     private Icon icon = null;
     private String tooltip = "";
     private final String id;
+    private String iconName = null;
 
     private final IconPresentation presentation = new IconPresentation();
     private final Consumer<MouseEvent> eventHandler;
@@ -44,12 +45,24 @@ public class StatusBarKpmIconWidget implements StatusBarWidget {
     }
 
     public void updateIcon(String iconName) {
+        if (iconName != null && iconName.equals(this.iconName)) {
+            return;
+        }
+        this.iconName = iconName;
         Icon icon = UtilManager.getResourceIcon(iconName, this.getClass().getClassLoader());
         this.setIcon(icon);
     }
 
     public void setTooltip(String tooltip) {
         this.tooltip = tooltip;
+    }
+
+    public String getTooltip() {
+        return tooltip;
+    }
+
+    public String getIconName() {
+        return iconName;
     }
 
     class IconPresentation implements StatusBarWidget.IconPresentation {
