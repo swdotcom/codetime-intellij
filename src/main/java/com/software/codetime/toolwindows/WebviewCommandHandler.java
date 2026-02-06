@@ -57,7 +57,7 @@ public class WebviewCommandHandler {
                 break;
             case "configureSettings":
                 ApplicationManager.getApplication().invokeLater(() -> {
-                    UtilManager.launchUrl(ConfigManager.app_url + "/preferences");
+                    UtilManager.launchUrl(ConfigManager.app_url + "/code_time/settings");
                 });
                 break;
             case "submitAnIssue":
