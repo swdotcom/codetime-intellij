@@ -4,7 +4,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
-import com.software.codetime.utils.FileUtilManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,21 +40,19 @@ public class StatusBarKpmTextWidget implements StatusBarWidget {
     }
 
     public void setTooltip(String tooltip) {
-        String name = FileUtilManager.getItem("name");
-
         if (tooltip == null) {
             tooltip = "Code time today. Click to see more from Code Time.";
         }
 
-        if (tooltip.lastIndexOf(".") != tooltip.length() - 1) {
-            tooltip += ".";
-        }
-
-        if (name != null) {
-            tooltip += " Logged in as " + name;
-        }
-
         this.tooltip = tooltip;
+    }
+
+    public String getText() {
+        return msg;
+    }
+
+    public String getTooltip() {
+        return tooltip;
     }
 
     class StatusPresentation implements StatusBarWidget.TextPresentation {

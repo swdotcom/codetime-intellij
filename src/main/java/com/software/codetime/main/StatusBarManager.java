@@ -42,95 +42,163 @@ public class StatusBarManager {
     }
 
     private static void hideStatus() {
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
-            public void run() {
-                ProjectManager pm = ProjectManager.getInstance();
-                if (pm != null && pm.getOpenProjects() != null && pm.getOpenProjects().length > 0) {
-                    try {
-                        String email = FileUtilManager.getItem("name");
-                        Project p = pm.getOpenProjects()[0];
-                        final StatusBar statusBar = WindowManager.getInstance().getStatusBar(p);
-                        updateTextWidget(statusBar, flowmsgId, "", "");
-                        updateTextWidget(statusBar, kpmmsgId, "", "");
-                    } catch (Exception e) {
+        ApplicationManager.getApplication().invokeLater(() -> {
+            ProjectManager pm = ProjectManager.getInstance();
+            if (pm == null || pm.getOpenProjects() == null) {
+                return;
+            }
+            for (Project p : pm.getOpenProjects()) {
+                try {
+                    final StatusBar statusBar = WindowManager.getInstance().getStatusBar(p);
+                    if (statusBar == null) {
+                        continue;
                     }
+                    updateTextWidget(statusBar, flowmsgId, "", "");
+                    updateIconWidget(statusBar, flowiconId, null, "");
+                    updateTextWidget(statusBar, kpmmsgId, "", "");
+                } catch (Exception e) {
+                    // ignore
                 }
             }
         });
     }
 
     public static void updateStatusBar(SessionSummary sessionSummary) {
-        if (sessionSummary == null) {
-            sessionSummary = SessionSummaryManager.fetchSessionSummary();
-        }
+        // Do any I/O / computation off the UI thread, then update UI once.
+        ApplicationManager.getApplication().executeOnPooledThread(() -> {
+            SessionSummary summary = sessionSummary != null ? sessionSummary : SessionSummaryManager.fetchSessionSummary();
 
-        FileUtilManager.writeData(FileUtilManager.getSessionDataSummaryFile(), sessionSummary);
+            // Persist only when content changed (avoids disk churn + watch feedback loops).
+            FileUtilManager.writeDataIfChanged(FileUtilManager.getSessionDataSummaryFile(), summary);
 
-        String currentDayTimeStr = UtilManager.humanizeMinutes(sessionSummary.currentDayMinutes);
+            final String name = FileUtilManager.getItem("name");
+            final boolean loggedIn = StringUtils.isNotBlank(name);
+            final String currentDayTimeStr = UtilManager.humanizeMinutes(summary.currentDayMinutes);
 
-        // build the status bar text information
-        ApplicationManager.getApplication().invokeLater(new Runnable() {
-            public void run() {
-                ProjectManager pm = ProjectManager.getInstance();
-                if (pm != null && pm.getOpenProjects() != null && pm.getOpenProjects().length > 0) {
-                    try {
-                        String email = FileUtilManager.getItem("name");
-                        Project p = pm.getOpenProjects()[0];
-                        final StatusBar statusBar = WindowManager.getInstance().getStatusBar(p);
+            // show Code Time if the current day time is null or the user is not registered
+            final String kpmMsgVal = loggedIn && currentDayTimeStr != null ? currentDayTimeStr : ConfigManager.plugin_name;
 
-                        // show Code Time if the current day time is null or the user is not registered
-                        String kpmMsgVal = StringUtils.isNotBlank(email) && currentDayTimeStr != null ? currentDayTimeStr : ConfigManager.plugin_name;
+            final String kpmIcon = "time-clock.png";
+            final String metricIconTooltip = "";
+            final String kpmTextTooltip = buildTooltip("Active code time today. Click to see more from Code Time.", name);
 
-                        // icon first
-                        String metricIconTooltip = "";
-                        String kpmIcon = "time-clock.png";
-                        updateIconWidget(statusBar, kpmiconId, kpmIcon, metricIconTooltip);
-
-                        // text next
-                        String kpmTextTooltip = "Active code time today. Click to see more from Code Time.";
-                        updateTextWidget(statusBar, kpmmsgId, kpmMsgVal, kpmTextTooltip);
-
-                        // don't show the flow mode icon if the user is not logged in
-                        if (StringUtils.isNotBlank(email)) {
-                            // flow icon
-                            String flowTooltip = "Enter Flow Mode";
-                            String flowIcon = "open-circle.png";
-                            try {
-                                if (FileUtilManager.getFlowChangeState()) {
-                                    flowIcon = "closed-circle.png";
-                                    flowTooltip = "Exit Flow Mode";
-                                }
-                                updateIconWidget(statusBar, flowiconId, flowIcon, flowTooltip);
-
-                                // flow text next
-                                updateTextWidget(statusBar, flowmsgId, "Flow", flowTooltip);
-                            } catch (Exception e) {
-                                System.out.println("status bar update error: " + e.getMessage());
-                            }
-                        }
-                    } catch(Exception e){
-                        //
+            String flowTooltip = null;
+            String flowIcon = null;
+            if (loggedIn) {
+                flowTooltip = "Enter Flow Mode";
+                flowIcon = "open-circle.png";
+                try {
+                    if (FileUtilManager.getFlowChangeState()) {
+                        flowIcon = "closed-circle.png";
+                        flowTooltip = "Exit Flow Mode";
                     }
+                } catch (Exception e) {
+                    // ignore
                 }
             }
+            final String flowTooltipFinal = flowTooltip;
+            final String flowIconFinal = flowIcon;
+            final String flowTextTooltip = flowTooltipFinal != null ? buildTooltip(flowTooltipFinal, name) : "";
+
+            ApplicationManager.getApplication().invokeLater(() -> {
+                if (!showStatusText) {
+                    return;
+                }
+
+                ProjectManager pm = ProjectManager.getInstance();
+                if (pm == null || pm.getOpenProjects() == null) {
+                    return;
+                }
+
+                for (Project p : pm.getOpenProjects()) {
+                    try {
+                        final StatusBar statusBar = WindowManager.getInstance().getStatusBar(p);
+                        if (statusBar == null) {
+                            continue;
+                        }
+
+                        // Code time widget
+                        updateIconWidget(statusBar, kpmiconId, kpmIcon, metricIconTooltip);
+                        updateTextWidget(statusBar, kpmmsgId, kpmMsgVal, kpmTextTooltip);
+
+                        // Flow widgets (clear them when logged out)
+                        if (loggedIn) {
+                            updateIconWidget(statusBar, flowiconId, flowIconFinal, flowTooltipFinal);
+                            updateTextWidget(statusBar, flowmsgId, "Flow", flowTextTooltip);
+                        } else {
+                            updateIconWidget(statusBar, flowiconId, null, "");
+                            updateTextWidget(statusBar, flowmsgId, "", "");
+                        }
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+            });
         });
     }
 
     private static void updateIconWidget(StatusBar statusBar, String widgetId, String icon, String tooltip) {
+        if (statusBar == null) {
+            return;
+        }
         StatusBarKpmIconWidget kpmIconWidget = (StatusBarKpmIconWidget) statusBar.getWidget(widgetId);
         if (kpmIconWidget != null) {
-            kpmIconWidget.updateIcon(icon);
-            kpmIconWidget.setTooltip(tooltip);
-            statusBar.updateWidget(widgetId);
+            boolean changed = false;
+
+            String currentIconName = kpmIconWidget.getIconName();
+            if ((icon == null && currentIconName != null) || (icon != null && !icon.equals(currentIconName))) {
+                kpmIconWidget.updateIcon(icon);
+                changed = true;
+            }
+
+            String normalizedTooltip = tooltip != null ? tooltip : "";
+            if (!normalizedTooltip.equals(kpmIconWidget.getTooltip())) {
+                kpmIconWidget.setTooltip(normalizedTooltip);
+                changed = true;
+            }
+
+            if (changed) {
+                statusBar.updateWidget(widgetId);
+            }
         }
     }
 
     private static void updateTextWidget(StatusBar statusBar, String widgetId, String msg, String tooltip) {
+        if (statusBar == null) {
+            return;
+        }
         StatusBarKpmTextWidget kpmMsgWidget = (StatusBarKpmTextWidget) statusBar.getWidget(widgetId);
         if (kpmMsgWidget != null) {
-            kpmMsgWidget.setText(msg);
-            kpmMsgWidget.setTooltip(tooltip);
-            statusBar.updateWidget(widgetId);
+            String normalizedMsg = msg != null ? msg : "";
+            String normalizedTooltip = tooltip != null ? tooltip : "";
+
+            boolean changed = false;
+            if (!normalizedMsg.equals(kpmMsgWidget.getText())) {
+                kpmMsgWidget.setText(normalizedMsg);
+                changed = true;
+            }
+            if (!normalizedTooltip.equals(kpmMsgWidget.getTooltip())) {
+                kpmMsgWidget.setTooltip(normalizedTooltip);
+                changed = true;
+            }
+
+            if (changed) {
+                statusBar.updateWidget(widgetId);
+            }
         }
+    }
+
+    private static String buildTooltip(String baseTooltip, String name) {
+        String tooltip = baseTooltip;
+        if (tooltip == null) {
+            tooltip = "Code time today. Click to see more from Code Time.";
+        }
+        if (tooltip.lastIndexOf(".") != tooltip.length() - 1) {
+            tooltip += ".";
+        }
+        if (StringUtils.isNotBlank(name)) {
+            tooltip += " Logged in as " + name;
+        }
+        return tooltip;
     }
 }
