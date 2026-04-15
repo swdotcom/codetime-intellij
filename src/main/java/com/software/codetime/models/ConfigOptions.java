@@ -1,8 +1,8 @@
 package com.software.codetime.models;
 
 public class ConfigOptions {
-    public String metricsEndpoint = "https://api.software.com";
-    public String appUrl = "https://app.software.com";
+    public String metricsEndpoint = "https://api.antenna.dev";
+    public String appUrl = "https://app.antenna.dev";
     public int pluginId = 4;
     public String pluginName = "";
     public String pluginVersion = "";

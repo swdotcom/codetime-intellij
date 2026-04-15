@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.software.codetime"
-version = "2.8.45" // bump before publishing
+version = "2.8.46" // bump before publishing
 
 configurations.configureEach {
     // IntelliJ-based IDEs ship Kotlin stdlib; bundling our own copy frequently triggers

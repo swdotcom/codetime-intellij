@@ -7,8 +7,8 @@ import com.intellij.openapi.application.ApplicationInfo;
 import java.util.Arrays;
 
 public class PluginInfo {
-    public static String metrics_endpoint = "https://api.software.com";
-    public static String app_url = "https://app.software.com";
+    public static String metrics_endpoint = "https://api.antenna.dev";
+    public static String app_url = "https://app.antenna.dev";
     public static String software_dir = ".software";
 
     public static String IDE_NAME = "";

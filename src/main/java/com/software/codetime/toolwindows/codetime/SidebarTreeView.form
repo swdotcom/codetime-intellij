@@ -295,7 +295,7 @@
                       <maximumSize width="2147483647" height="24"/>
                       <minimumSize width="86" height="24"/>
                       <preferredSize width="169" height="24"/>
-                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;More data at Software.com&lt;/a&gt;&lt;/html&gt;"/>
+                      <text value="&lt;html&gt;&lt;a href=&quot;#&quot; style='padding-left: 2px'&gt;More data at antenna.dev&lt;/a&gt;&lt;/html&gt;"/>
                     </properties>
                   </component>
                   <component id="925de" class="javax.swing.JToolBar$Separator">

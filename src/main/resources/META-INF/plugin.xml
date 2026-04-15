@@ -8,7 +8,7 @@
     <name>Code Time</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://www.software.com/product/code-time">Software</vendor>
+    <vendor url="https://www.antenna.dev/product/code-time">Software</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -28,19 +28,19 @@
 </p>
 
 <!-- Plugin description -->
-<p><a href="https://www.software.com"><img alt="Software.com" src="https://assets.software.com/readme/software-logo-light.png" width="100px" style="background-color: white; padding: 2px 8px 2px 3px; border-radius: 2px; border-style: none;"></a></p>
+<p><a href="https://www.antenna.dev"><img alt="antenna.dev" src="https://assets.antenna.dev/readme/software-logo-light.png" width="100px" style="background-color: white; padding: 2px 8px 2px 3px; border-radius: 2px; border-style: none;"></a></p>
 
-<p><a href="https://www.software.com/code-time">Code Time</a> is an open source plugin for automatic programming metrics and time tracking in IntelliJ and JetBrains IDEs. Track your productivity, protect valuable code time, and stay in flow.</p>
+<p><a href="https://www.antenna.dev/code-time">Code Time</a> is an open source plugin for automatic programming metrics and time tracking in IntelliJ and JetBrains IDEs. Track your productivity, protect valuable code time, and stay in flow.</p>
 
 <p style="text-align: center">
-  <a href="https://app.software.com/signup?ref=readme">
-    <img width="220px" height="66px" alt="Sign up for Software.com" src="https://assets.software.com/readme/code-time/signup-button.png">
+  <a href="https://app.antenna.dev/signup?ref=readme">
+    <img width="220px" height="66px" alt="Sign up for antenna.dev" src="https://assets.antenna.dev/readme/code-time/signup-button.png">
   </a>
 </p>
 
 <p>Join our community of over 150,000 developers who use Code Time to reclaim time for focused, uninterrupted coding.</p>
 
-<p><img alt="Code Time features for IntelliJ and JetBrains" src="https://assets.software.com/readme/code-time/intellij/features-2.4.7.png"></p>
+<p><img alt="Code Time features for IntelliJ and JetBrains" src="https://assets.antenna.dev/readme/code-time/intellij/features-2.4.7.png"></p>
 
 <h2>Getting Started</h2>
 
@@ -52,7 +52,7 @@
 
 <h2>Protect Code Time</h2>
 
-<p><img alt="Code Time Flow Mode" src="https://assets.software.com/readme/code-time/intellij/stay-in-flow-2.4.7.png"></p>
+<p><img alt="Code Time Flow Mode" src="https://assets.antenna.dev/readme/code-time/intellij/stay-in-flow-2.4.7.png"></p>
 
 <p>Flow Mode makes it easy to eliminate distractions, mute notifications, and stay focused when you are in flow.</p>
 
@@ -62,7 +62,7 @@
 
 <h2>Track Development Metrics</h2>
 
-<p><img alt="Code Time programming metrics" src="https://assets.software.com/readme/code-time/intellij/measure-progress-2.4.7.png"></p>
+<p><img alt="Code Time programming metrics" src="https://assets.antenna.dev/readme/code-time/intellij/measure-progress-2.4.7.png"></p>
 
 <p>Your coding stats can help you understand how you are improving over time.</p>
 
@@ -74,9 +74,9 @@
 
 <h2>Explore Data Visualizations</h2>
 
-<p><img alt="Code Time web app" src="https://assets.software.com/readme/code-time/vscode/visualize-everything.png"></p>
+<p><img alt="Code Time web app" src="https://assets.antenna.dev/readme/code-time/vscode/visualize-everything.png"></p>
 
-<p>Click <i>More data at software.com</i> in the Code Time sidebar or visit [app.software.com](https://app.software.com) to see more advanced data visualizations. You will need to create a free Software account to use the web app. In the Code Time dashboard, you will be able to track:</p>
+<p>Click <i>More data at antenna.dev</i> in the Code Time sidebar or visit [app.antenna.dev](https://app.antenna.dev) to see more advanced data visualizations. You will need to create a free Software account to use the web app. In the Code Time dashboard, you will be able to track:</p>
 <ul>
 <li><em>Active code time.</em> Visualize your daily active code time. See productivity trends compared to weekly and monthly averages. See how you stack up against the Software community of over 150,000 developers.</li>
 
@@ -86,21 +86,21 @@
 </ul>
 <h2>Invite Your Team</h2>
 
-<p><img alt="Software.com Teams" src="https://assets.software.com/readme/code-time/vscode/lead-your-team-2.5.3.png"></p>
+<p><img alt="antenna.dev Teams" src="https://assets.antenna.dev/readme/code-time/vscode/lead-your-team-2.5.3.png"></p>
 
 <p>With Teams, you can defend code time, see the impact of meetings, and improve work-life balance across your entire team.</p>
 
 <p>Remember, your data is for you, no one else. Your team data is for your team. When you create a team, you will only see aggregated and anonymized summary data at the team level—available to everyone on that team. In addition, to protect individual privacy, the minimum team size is five members.</p>
 
-<p>To create a team, visit the [team dashboard](https://app.software.com/team-dashboard) in the web app to get started. It's free to create a team, but you can upgrade to a premium plan to unlock additional features.</p>
+<p>To create a team, visit the [team dashboard](https://app.antenna.dev/team-dashboard) in the web app to get started. It's free to create a team, but you can upgrade to a premium plan to unlock additional features.</p>
 
 <h2>It’s Safe, Secure, and Free</h2>
 
 <p><strong>We never access your code:</strong> We do not process, send, or store your proprietary code. We only provide metrics about programming, and we make it easy to see the data we collect.</p>
 
-<p><strong>Your data is private:</strong> We will never share your individually identifiable data with your boss. When you join a team, we only show aggregated and anonymized data. We encourage you to read [Data Privacy Matters](https://www.software.com/data-privacy), an overview of the steps we take to protect your privacy and security.</p>
+<p><strong>Your data is private:</strong> We will never share your individually identifiable data with your boss. When you join a team, we only show aggregated and anonymized data. We encourage you to read [Data Privacy Matters](https://www.antenna.dev/data-privacy), an overview of the steps we take to protect your privacy and security.</p>
 
-<p><strong>Free for you, forever:</strong> We provide 90 days of data history for free, forever. We provide <a href="https://www.software.com/pricing">premium plans</a> for advanced features and historical data access.</p>
+<p><strong>Free for you, forever:</strong> We provide 90 days of data history for free, forever. We provide <a href="https://www.antenna.dev/pricing">premium plans</a> for advanced features and historical data access.</p>
 
 <p>Code Time also collects basic usage metrics to help us make informed decisions about our roadmap.</p>
 
