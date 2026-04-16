@@ -70,7 +70,7 @@ public class LoadError {
                 "        It looks like this view is temporarily unavailable, but we’re working to fix the problem.\n" +
                 "    </div>\n" +
                 "    <div style=\"padding: 5px; margin-bottom: 10px\">\n" +
-                "        Keep an eye on our <a href=\"https://status.software.com/\" class=\"link\">status page</a> or reach out to us at <a href=\"mailto:support@software.com\" class=\"link\">support@software.com</a> if you need help.\n" +
+                "        Keep an eye on our <a href=\"https://status.antenna.dev/\" class=\"link\">status page</a> or reach out to us at <a href=\"mailto:support@antenna.dev\" class=\"link\">support@antenna.dev</a> if you need help.\n" +
                 "    </div>\n" +
                 "    <div style=\"padding: 5px; margin-top: 20px\">\n" +
                 "        <a href=\"#\" class=\"link\" onclick=\"onCmdClick('refreshCodeTimeView')\">Refresh</a>\n" +

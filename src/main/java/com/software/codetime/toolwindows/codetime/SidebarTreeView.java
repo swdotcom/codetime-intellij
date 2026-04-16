@@ -162,7 +162,7 @@ public class SidebarTreeView {
         readMoreOnGitHubButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                UtilManager.launchUrl("https://www.software.com/src/auto-flow-mode");
+                UtilManager.launchUrl("https://www.antenna.dev/src/auto-flow-mode");
             }
         });
 

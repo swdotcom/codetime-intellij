@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 public class ConfigManager {
     public static final Logger log = Logger.getLogger("ConfigManager");
 
-    public static String metrics_endpoint = "https://api.software.com";
-    public static String app_url = "https://app.software.com";
+    public static String metrics_endpoint = "https://api.antenna.dev";
+    public static String app_url = "https://app.antenna.dev";
     public static String intellij_issues_url = "https://github.com/swdotcom/codetime-intellij/issues";
-    public static String WS_URL = "wss://api.software.com/websockets";
+    public static String WS_URL = "wss://api.antenna.dev/websockets";
     public static String create_org_url = app_url + "/github_onboard";
     public static String software_dir = ".software";
     public static long DEFAULT_SESSION_THRESHOLD_SECONDS = 60 * 5;
