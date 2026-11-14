@@ -52,7 +52,7 @@ intellijPlatform {
         // Build-number compatibility written into the produced plugin.xml.
         // Declare support starting from IntelliJ IDEA 2023.2 (232.*).
         ideaVersion {
-            sinceBuild = "232"
+            sinceBuild = "253"
             // Do not cap upper bound (allows installing on newer IDE builds too).
             untilBuild = provider { null }
         }
